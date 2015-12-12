@@ -1,2 +1,5 @@
-flask
-gunicorn
+Flask==0.10.1
+itsdangerous==0.24
+Jinja2==2.8
+Werkzeug==0.11.2
+gunicorn==19.4.1
