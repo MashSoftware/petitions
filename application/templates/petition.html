@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Signatures by country</h3>
+      </div>
+      <table class="table table-hover">
+        <tr>
+          <th>Country</th>
+          <th>Signatures</th>
+        </tr>
+        {% for country in data['data']['attributes']['signatures_by_country']%}
+        <tr>
+          <td>{{ country.name }}</td>
+          <td>{{ country.signature_count }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Signatures by constituency</h3>
+      </div>
+      <table class="table table-hover">
+        <tr>
+          <th>Constituency</th>
+          <th>MP</th>
+          <th>Signatures</th>
+        </tr>
+        {% for constituency in data['data']['attributes']['signatures_by_constituency']%}
+        <tr>
+          <td>{{ constituency.name }}</td>
+          <td>{{ constituency.mp }}</td>
+          <td>{{ constituency.signature_count }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+signatures_by_constituency
+{% endblock %}
