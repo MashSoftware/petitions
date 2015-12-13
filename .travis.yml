@@ -1,0 +1,13 @@
+language: python
+python:
+- '2.7.6'
+install: pip install -r requirements.txt
+script: nosetests
+deploy:
+  provider: heroku
+  api_key:
+    secure: YyCBr9vjK62YQ9aov2/8yDk70MokwVCq0h8km3arHOj0BXMLVWWauIHZ4U3P5nS/KJSVtRGXSQNrQZ/wOIDvQ2rphYdqKs9yZt5nmLtjBCcnWaArnjfA5rLAledafHQrjcuYz7wd2/ezpieap9nAw4EPUINKEm7q065iApvo18Esj+fPAyr/DUpixs0I+fmxPb3cL5Qeq4d0fkprJTnPr6kbHKe0LJ33v0cBkfcsjgcgi1i/8Tz9NlLWf47JqYfHpV2gyuz7KrNjwfuRxcncsAsy5iN0v5aPgZFC6XTRxkJxFI41h9oVhnkUtVXjDaTMxLFhvmF+mOdNW5o8RxDWg92jjjK/bwUHda+HHCvohCJntYb0jkSCKUDPM/fOgjrqxygxeffZZCicoyJ/X18NHR0wMkOMIbj22U4zgL0kxvF09GuT1raYznpV4cSrbDOH+LALotVCkGs4GQXyQIhaFGjpkO2K7Y9bSXyJsTsadLmGgshaOOMhAnBX1ytVS/dW2I5xhPo6hDkS0yj4BUyW/2Cfrhp4tTRMNH+RyTio1Qo7zxhtWcUiUz/o6Ti1cvWgyJ2Ew3TTIYjEVwDbk9iUZMC11cJHKF1zo+zd+/ECnsPQ+f0E1RHSFkeIzqfIniUR6OiJpmcnlDjwIU+a/LuhzOWbNxpbRMQPwNnn88xFgWs=
+  app: mash-maps
+  on:
+    repo: MashSoftware/mash-maps
+    branch: master
