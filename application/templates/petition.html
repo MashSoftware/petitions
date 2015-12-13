@@ -3,6 +3,10 @@
 <div class="page-header">
   <h1>{{ data['data']['attributes']['action'] }}</h1>
 </div>
+<a href="{{ data['links']['self'] }}">Original Data</a>
+
+<p>{{ data['data']['attributes']['background'] }}</p>
+<p>{{ data['data']['attributes']['additional_details'] }}</p>
 
 <div class="row">
   <div class="col-md-6">
@@ -24,7 +28,7 @@
       </table>
     </div>
   </div>
-
+  
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -48,5 +52,4 @@
   </div>
 </div>
 
-signatures_by_constituency
 {% endblock %}
