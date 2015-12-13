@@ -6,7 +6,7 @@ from flask import render_template
 
 @app.route('/', methods=["GET"])
 def index():
-    return render_template('index.html', title='Mash Maps')
+    return render_template('index.html')
 
 
 @app.route('/petition', methods=["GET"])
@@ -16,4 +16,4 @@ def petition():
 
     data = json.loads(r.text)
 
-    return render_template('petition.html', title='Petition', data=data)
+    return render_template('petition.html', data=data)
