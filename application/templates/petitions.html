@@ -1,27 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h3>Parliamentary Petitions</h3>
+      <a href="{{ data['links']['self'] }}">Original Data</a>
+    </div>
+  </div>
+</div>
 
 <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Parliamentary Petitions</h3>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Action</th>
+            <th>State</th>
+            <th>Signatures</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for petition in data['data'] %}
+          <tr>
+            <td><a href="/petitions/{{ petition.id }}">{{ petition.id }}</a></td>
+            <td>{{ petition.attributes.action }}</td>
+            <td>{{ petition.attributes.state |capitalize }}</td>
+            <td>{{ petition.attributes.signature_count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <table class="table table-hover">
-      <tr>
-        <th>ID</th>
-        <th>Action</th>
-        <th>State</th>
-        <th>Signatures</th>
-      </tr>
-      {% for petition in data['data'] %}
-      <tr>
-        <td><a href="/petitions/{{ petition.id }}">{{ petition.id }}</a></td>
-        <td>{{ petition.attributes.action }}</td>
-        <td>{{ petition.attributes.state |capitalize }}</td>
-        <td>{{ petition.attributes.signature_count }}</td>
-      </tr>
-      {% endfor %}
-    </table>
   </div>
 </div>
 {% endblock %}

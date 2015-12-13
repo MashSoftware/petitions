@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="page-header">
-  <h1>{{ data['data']['attributes']['action'] }}</h1>
-</div>
-<a href="{{ data['links']['self'] }}">Original Data</a>
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h3>{{ data['data']['attributes']['action'] }}</h3>
+      <a href="{{ data['links']['self'] }}">Original Data</a>
+    </div>
 
-<p>{{ data['data']['attributes']['background'] }}</p>
-<p>{{ data['data']['attributes']['additional_details'] }}</p>
+    <p class="lead">{{ data['data']['attributes']['background'] }}</p>
+    <p class="lead">{{ data['data']['attributes']['additional_details'] }}</p>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-6">
@@ -15,38 +19,46 @@
         <h3 class="panel-title">Signatures by country</h3>
       </div>
       <table class="table table-hover">
-        <tr>
-          <th>Country</th>
-          <th>Signatures</th>
-        </tr>
-        {% for country in data['data']['attributes']['signatures_by_country']%}
-        <tr>
-          <td>{{ country.name }}</td>
-          <td>{{ country.signature_count }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Signatures</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for country in data['data']['attributes']['signatures_by_country']%}
+          <tr>
+            <td>{{ country.name }}</td>
+            <td>{{ country.signature_count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </div>
   </div>
-  
+
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Signatures by constituency</h3>
       </div>
       <table class="table table-hover">
-        <tr>
-          <th>Constituency</th>
-          <th>MP</th>
-          <th>Signatures</th>
-        </tr>
-        {% for constituency in data['data']['attributes']['signatures_by_constituency']%}
-        <tr>
-          <td>{{ constituency.name }}</td>
-          <td>{{ constituency.mp }}</td>
-          <td>{{ constituency.signature_count }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+          <tr>
+            <th>Constituency</th>
+            <th>MP</th>
+            <th>Signatures</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for constituency in data['data']['attributes']['signatures_by_constituency']%}
+          <tr>
+            <td>{{ constituency.name }}</td>
+            <td>{{ constituency.mp }}</td>
+            <td>{{ constituency.signature_count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </div>
   </div>
