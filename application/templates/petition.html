@@ -47,11 +47,21 @@
         <div class="list-group-item">
           <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
         </div>
+        {% if data['data']['attributes']['debate']['transcript_url'] %}
         <div class="list-group-item">
-          {% if data['data']['attributes']['debate']['transcript_url'] %}<p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>{% endif %}
-          {% if data['data']['attributes']['debate']['video_url'] %}<p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>{% endif %}
-          {% if data['data']['attributes']['debate']['overview'] %}<p>{{ data['data']['attributes']['debate']['overview'] }}</p>{% endif %}
+          <p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>
         </div>
+        {% endif %}
+        {% if data['data']['attributes']['debate']['video_url'] %}
+        <div class="list-group-item">
+          <p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>
+        </div>
+        {% endif %}
+        {% if data['data']['attributes']['debate']['overview'] %}
+        <div class="list-group-item">
+          <p>{{ data['data']['attributes']['debate']['overview'] }}</p>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
