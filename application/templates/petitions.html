@@ -11,7 +11,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-default">
+    <div class="panel panel-default table-responsive">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -26,7 +26,15 @@
           <tr>
             <td><a href="/petitions/{{ petition.id }}">{{ petition.id }}</a></td>
             <td>{{ petition.attributes.action }}</td>
-            <td>{{ petition.attributes.state |capitalize }}</td>
+            <td>
+              {% if petition.attributes.government_response %}
+              Response
+              {% elif petition.attributes.debate %}
+              Debate
+              {% else %}
+              {{ petition.attributes.state |capitalize }}
+              {% endif %}
+            </td>
             <td>{{ petition.attributes.signature_count }}</td>
           </tr>
           {% endfor %}

@@ -6,17 +6,65 @@
       <h3>{{ data['data']['attributes']['action'] }}</h3>
       <a href="{{ data['links']['self'] }}">Original Data</a>
     </div>
-
-    <p class="lead">{{ data['data']['attributes']['background'] }}</p>
-    <p class="lead">{{ data['data']['attributes']['additional_details'] }}</p>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Signatures by country</h3>
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Backgroud</h5>
+        </div>
+        <div class="list-group-item">
+          <p>{{ data['data']['attributes']['background'] }}</p>
+          <p>{{ data['data']['attributes']['additional_details'] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if data['data']['attributes']['government_response'] %}
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Government Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
+        </div>
+        <div class="list-group-item">
+          <p>{{ data['data']['attributes']['government_response']['summary'] }}</p>
+          <p>{{ data['data']['attributes']['government_response']['details'] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if data['data']['attributes']['debate'] %}
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
+        </div>
+        <div class="list-group-item">
+          {% if data['data']['attributes']['debate']['transcript_url'] %}<p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>{% endif %}
+          {% if data['data']['attributes']['debate']['video_url'] %}<p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>{% endif %}
+          {% if data['data']['attributes']['debate']['overview'] %}<p>{{ data['data']['attributes']['debate']['overview'] }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default table-responsive">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-globe fa-fw"></i> Signatures by country</h5>
+        </div>
       </div>
       <table class="table table-hover">
         <thead>
@@ -37,10 +85,13 @@
     </div>
   </div>
 
+
   <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Signatures by constituency</h3>
+    <div class="panel panel-default table-responsive">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-map-signs fa-fw"></i> Signatures by constituency</h5>
+        </div>
       </div>
       <table class="table table-hover">
         <thead>
