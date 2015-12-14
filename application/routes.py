@@ -1,6 +1,7 @@
 import json
 import requests
 from application import app
+from application.utils import get_mp_data
 from flask import render_template
 
 @app.route('/', methods=["GET"])
