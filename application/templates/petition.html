@@ -78,13 +78,15 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th>Rank</th>
             <th>Country</th>
-            <th>Signatures</th>
+            <th>Signatories</th>
           </tr>
         </thead>
         <tbody>
-          {% for country in data['data']['attributes']['signatures_by_country']%}
+          {% for country in countries %}
           <tr>
+            <td>{{ loop.index }}</td>
             <td>{{ country.name }}</td>
             <td>{{ country.signature_count }}</td>
           </tr>
@@ -105,14 +107,16 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th>Rank</th>
             <th>Constituency</th>
             <th>MP</th>
-            <th>Signatures</th>
+            <th>Signatories</th>
           </tr>
         </thead>
         <tbody>
-          {% for constituency in data['data']['attributes']['signatures_by_constituency']%}
+          {% for constituency in constituencies %}
           <tr>
+            <td>{{ loop.index }}</td>
             <td>{{ constituency.name }}</td>
             <td>{{ constituency.mp }}</td>
             <td>{{ constituency.signature_count }}</td>
