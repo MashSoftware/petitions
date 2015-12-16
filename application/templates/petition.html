@@ -17,115 +17,120 @@
         </div>
         <div class="list-group-item">
           <p>{{ data['data']['attributes']['background']|urlize(40) }}</p>
-          <p>{{ data['data']['attributes']['additional_details']|urlize(40) }}</p>
+          <a role="button" data-toggle="collapse" href="#additional_details" aria-expanded="false" aria-controls="additional_details"><i class="fa fa-caret-right fa-fw"></i>More details</a>
+          <div class="collapse" id="additional_details">
+            <p>{{ data['data']['attributes']['additional_details']|urlize(40) }}</p></div>
+          </div>
         </div>
+      </div>
+    </div>
+
+    {% if data['data']['attributes']['government_response'] %}
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Government Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
+          </div>
+          <div class="list-group-item">
+            <p>{{ data['data']['attributes']['government_response']['summary']|urlize(40) }}</p>
+            <a role="button" data-toggle="collapse" href="#details" aria-expanded="false" aria-controls="details"><i class="fa fa-caret-right fa-fw"></i>More details</a>
+            <div class="collapse" id="details">
+              <p>{{ data['data']['attributes']['government_response']['details']|urlize(40) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if data['data']['attributes']['debate'] %}
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
+          </div>
+          {% if data['data']['attributes']['debate']['transcript_url'] %}
+          <div class="list-group-item">
+            <p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>
+          </div>
+          {% endif %}
+          {% if data['data']['attributes']['debate']['video_url'] %}
+          <div class="list-group-item">
+            <p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>
+          </div>
+          {% endif %}
+          {% if data['data']['attributes']['debate']['overview'] %}
+          <div class="list-group-item">
+            <p>{{ data['data']['attributes']['debate']['overview']|urlize(40) }}</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><i class="fa fa-globe fa-fw"></i> Signatures by country</h5>
+          </div>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Country</th>
+              <th>Signatories</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for country in countries %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ country.name }}</td>
+              <td>{{ country.signature_count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><i class="fa fa-map-signs fa-fw"></i> Signatures by constituency</h5>
+          </div>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Constituency</th>
+              <th>MP</th>
+              <th>Signatories</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for constituency in constituencies %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ constituency.name }}</td>
+              <td>{{ constituency.mp }}</td>
+              <td>{{ constituency.signature_count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 
-  {% if data['data']['attributes']['government_response'] %}
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="list-group">
-        <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Government Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
-        </div>
-        <div class="list-group-item">
-          <p>{{ data['data']['attributes']['government_response']['summary']|urlize(40) }}</p>
-          <p>{{ data['data']['attributes']['government_response']['details']|urlize(40) }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-
-  {% if data['data']['attributes']['debate'] %}
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="list-group">
-        <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
-        </div>
-        {% if data['data']['attributes']['debate']['transcript_url'] %}
-        <div class="list-group-item">
-          <p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>
-        </div>
-        {% endif %}
-        {% if data['data']['attributes']['debate']['video_url'] %}
-        <div class="list-group-item">
-          <p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>
-        </div>
-        {% endif %}
-        {% if data['data']['attributes']['debate']['overview'] %}
-        <div class="list-group-item">
-          <p>{{ data['data']['attributes']['debate']['overview']|urlize(40) }}</p>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
-</div>
-
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="list-group">
-        <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-globe fa-fw"></i> Signatures by country</h5>
-        </div>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Country</th>
-            <th>Signatories</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for country in countries %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ country.name }}</td>
-            <td>{{ country.signature_count }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="list-group">
-        <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-map-signs fa-fw"></i> Signatures by constituency</h5>
-        </div>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Constituency</th>
-            <th>MP</th>
-            <th>Signatories</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for constituency in constituencies %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ constituency.name }}</td>
-            <td>{{ constituency.mp }}</td>
-            <td>{{ constituency.signature_count }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-{% endblock %}
+  {% endblock %}
