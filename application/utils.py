@@ -11,10 +11,10 @@ def get_mp_data(constituency):
         data = response.json()
     return data
 
-def get_constitiency_extent(ons_code):
+def constituency_extent(ons_code):
     response =  requests.get('http://mapit.mysociety.org/area/' + ons_code + '.geojson')
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
     else:
-        data = response.text
+        data = response.json()
     return data

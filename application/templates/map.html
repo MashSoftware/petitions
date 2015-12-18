@@ -41,7 +41,7 @@
   map.on('locationfound', onLocationFound);
   map.on('locationerror', onLocationError);
 
-  //L.geoJson({{extents}}).addTo(map);
+  L.geoJson({{extents|safe}}).addTo(map);
   map.locate({setView: true, maxZoom: 11});
   </script>
 </body>

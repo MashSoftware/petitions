@@ -1,7 +1,7 @@
 import json
 import requests
 from application import app
-from application.utils import get_mp_data, get_constitiency_extent
+from application.utils import get_mp_data, constituency_extent
 from flask import render_template
 from operator import itemgetter
 
@@ -22,7 +22,7 @@ def petition(id):
     r = requests.get(url)
     data = json.loads(r.text)
 
-    extent = json.loads(get_constitiency_extent('E14000879'))
+    extent = json.dumps(constituency_extent('E14000879'))
 
     countries = data['data']['attributes']['signatures_by_country']
     sorted_countries = sorted(countries, key=itemgetter('signature_count'), reverse=True)
@@ -43,7 +43,7 @@ def map(id):
     data = json.loads(r.text)
 
     constituencies = data['data']['attributes']['signatures_by_constituency']
-    extent = json.loads(get_constitiency_extent('E14000879'))
+    extent = json.dumps(constituency_extent('E14000879'))
 
     return render_template('map.html',
         extents=extent)
