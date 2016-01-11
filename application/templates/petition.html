@@ -1,13 +1,15 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="row">
-  <div class="col-md-12">
-    <div class="page-header">
+{% block heading %}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="container">
       <h3>{{ data['data']['attributes']['action'] }}</h3>
     </div>
   </div>
 </div>
+{% endblock %}
 
+{% block content %}
 <div class="row">
   <div class="col-md-6">
     <div class="row">
@@ -16,7 +18,7 @@
         <div class="panel panel-default">
           <div class="list-group">
             <div class="list-group-item">
-              <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Background</h5>
+              <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Background</h5>
             </div>
             <div class="list-group-item">
               <p>{{ data['data']['attributes']['background']|urlize(40) }}</p>
@@ -77,13 +79,13 @@
   </div>
 </div>
 
+{% if data['data']['attributes']['government_response'] %}
 <div class="row">
-  {% if data['data']['attributes']['government_response'] %}
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="list-group">
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
+          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
         </div>
         <div class="list-group-item">
           <p>{{ data['data']['attributes']['government_response']['summary']|urlize(40) }}</p>
@@ -95,14 +97,16 @@
       </div>
     </div>
   </div>
-  {% endif %}
+</div>
+{% endif %}
 
-  {% if data['data']['attributes']['debate'] %}
+{% if data['data']['attributes']['debate'] %}
+<div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="list-group">
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-quote-right fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
+          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
         </div>
         {% if data['data']['attributes']['debate']['transcript_url'] %}
         <div class="list-group-item">
@@ -122,39 +126,10 @@
       </div>
     </div>
   </div>
-  {% endif %}
 </div>
+{% endif %}
 
 <div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="list-group">
-        <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-globe fa-fw"></i> Signatures by country</h5>
-        </div>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Country</th>
-            <th>Signatories</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for country in countries %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ country.name }}</td>
-            <td>{{ country.signature_count }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="list-group">
@@ -178,6 +153,34 @@
             <td>{{ constituency.name }}</td>
             <td>{{ constituency.mp }}</td>
             <td>{{ constituency.signature_count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-globe fa-fw"></i> Signatures by country</h5>
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Country</th>
+            <th>Signatories</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for country in countries %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ country.name }}</td>
+            <td>{{ country.signature_count }}</td>
           </tr>
           {% endfor %}
         </tbody>
