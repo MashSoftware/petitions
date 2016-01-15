@@ -34,6 +34,8 @@
             <td>
               {% if petition.attributes.government_response %}
                 <i class="fa fa-check fa-fw text-success"></i>
+              {% elif petition.attributes.signature_count >= 10000 %}
+                <i class="fa fa-hourglass-half fa-fw text-warning"></i>
               {% else %}
                 <i class="fa fa-times fa-fw text-danger"></i>
               {% endif %}
@@ -41,6 +43,8 @@
             <td>
               {% if petition.attributes.debate %}
                 <i class="fa fa-check fa-fw text-success"></i>
+              {% elif petition.attributes.signature_count >= 100000 %}
+                <i class="fa fa-hourglass-half fa-fw text-warning"></i>
               {% else %}
                 <i class="fa fa-times fa-fw text-danger"></i>
               {% endif %}
