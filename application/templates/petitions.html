@@ -18,8 +18,10 @@
           <tr>
             <th>ID</th>
             <th>Action</th>
-            <th>State</th>
             <th>Signatures</th>
+            <th>State</th>
+            <th>Response</th>
+            <th>Debate</th>
           </tr>
         </thead>
         <tbody>
@@ -27,16 +29,22 @@
           <tr>
             <td><a href="/petitions/{{ petition.id }}">{{ petition.id }}</a></td>
             <td>{{ petition.attributes.action }}</td>
+            <td>{{ petition.attributes.signature_count }}</td>
+            <td>{{ petition.attributes.state |capitalize }}</td>
             <td>
               {% if petition.attributes.government_response %}
-              Response
-              {% elif petition.attributes.debate %}
-              Debate
+                <i class="fa fa-check fa-fw text-success"></i>
               {% else %}
-              {{ petition.attributes.state |capitalize }}
+                <i class="fa fa-times fa-fw text-danger"></i>
               {% endif %}
             </td>
-            <td>{{ petition.attributes.signature_count }}</td>
+            <td>
+              {% if petition.attributes.debate %}
+                <i class="fa fa-check fa-fw text-success"></i>
+              {% else %}
+                <i class="fa fa-times fa-fw text-danger"></i>
+              {% endif %}
+            </td>
           </tr>
           {% endfor %}
         </tbody>
