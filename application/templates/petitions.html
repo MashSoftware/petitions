@@ -50,6 +50,16 @@
         </tbody>
       </table>
     </div>
+    <nav>
+      <ul class="pager">
+        {% if (page|int - 1) < 1 %}
+        <li class="previous disabled"><a href="#"><i class="fa fa-chevron-left fa-fw"></i> Previous</a></li>
+        {% else %}
+        <li class="previous"><a href="/petitions?page={{ page|int - 1 }}"><i class="fa fa-chevron-left fa-fw"></i> Previous</a></li>
+        {% endif %}
+        <li class="next"><a href="/petitions?page={{ page|int + 1 }}">Next <i class="fa fa-chevron-right fa-fw"></i></a></li>
+      </ul>
+    </nav>
   </div>
 </div>
 {% endblock %}
