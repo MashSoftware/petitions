@@ -32,13 +32,13 @@ def petition(id):
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
-    #extents = constituency_collection(constituencies)
+    extents = constituency_collection(sorted_constituencies)
 
     return render_template('petition.html',
         data=data,
         countries=sorted_countries,
-        constituencies=sorted_constituencies)
-        #extents=extents)
+        constituencies=sorted_constituencies,
+        extents=extents)
 
 @app.route('/petitions/<id>/map', methods=["GET"])
 def map(id):
@@ -47,7 +47,9 @@ def map(id):
     data = json.loads(r.text)
 
     constituencies = data['data']['attributes']['signatures_by_constituency']
-    #extents = constituency_collection(constituencies)
+    sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
-    return render_template('map.html')
-        #extents=extents)
+    extents = constituency_collection(sorted_constituencies)
+
+    return render_template('map.html',
+        extents=extents)

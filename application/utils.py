@@ -1,5 +1,6 @@
 import json
 import requests
+import geojson
 from geojson import Polygon, Feature, FeatureCollection
 
 def get_mp_data(constituency):
@@ -23,7 +24,7 @@ def constituency_extent(ons_code):
 def constituency_collection(constituencies):
     features=[]
 
-    for constituency in constituencies:
+    for constituency in constituencies [:10]:
         feature = Feature(geometry=Polygon(constituency_extent(constituency['ons_code'])['coordinates']))
         feature.properties['name'] = constituency['name']
         feature.properties['mp'] = constituency['mp']
