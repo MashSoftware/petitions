@@ -3,6 +3,11 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home fa-fw"></i></a></li>
+        <li><a href="/petitions">Petitions</a></li>
+        <li class="active">{{ data['data']['id'] }}</li>
+      </ol>
       <h3><b>Petition:</b> {{ data['data']['attributes']['action'] }}</h3>
       <p class="lead">{{ data['data']['attributes']['signature_count'] }} signatures as of {{ data['data']['attributes']['updated_at'] }}</p>
     </div>
