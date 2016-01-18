@@ -48,6 +48,7 @@
               {% if data['data']['attributes']['response_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['response_threshold_reached_at'] }}:</b> 10000 signature response threshold reached.</p>{% endif %}
               {% if data['data']['attributes']['government_response_at'] %}<p><b>{{ data['data']['attributes']['government_response_at'] }}:</b> Government responded.</p>{% endif %}
               {% if data['data']['attributes']['debate_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['debate_threshold_reached_at'] }}:</b> 100000 signature debate threshold reached.</p>{% endif %}
+              {% if data['data']['attributes']['debate_outcome_at'] %}<p><b>{{ data['data']['attributes']['debate_outcome_at'] }}:</b> Debate outcome.</p>{% endif %}
             </div>
             <!-- <div class="list-group-item">
               <p>{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% of 10000 signatures needed for government response.</p>
