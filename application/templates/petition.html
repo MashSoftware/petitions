@@ -55,20 +55,6 @@
               {% if data['data']['attributes']['debate_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['debate_threshold_reached_at'] }}:</b> 100000 signature debate threshold reached.</p>{% endif %}
               {% if data['data']['attributes']['debate_outcome_at'] %}<p><b>{{ data['data']['attributes']['debate_outcome_at'] }}:</b> Debate outcome.</p>{% endif %}
             </div>
-            <!-- <div class="list-group-item">
-              <p>{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% of 10000 signatures needed for government response.</p>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 10000 * 100 }}%;">
-                  <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% Complete</span>
-                </div>
-              </div>
-              <p>{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% of 100000 signatures needed for parlimentary debate.</p>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 100000 * 100 }}%;">
-                  <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% Complete</span>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -113,7 +99,7 @@
   </div>
 </div>
 
-{% if data['data']['attributes']['government_response'] %}
+<!-- Response Panel -->
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -122,19 +108,32 @@
           <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
         </div>
         <div class="list-group-item">
-          <p>{{ data['data']['attributes']['government_response']['summary']|urlize(40) }}</p>
-          <a role="button" data-toggle="collapse" href="#details" aria-expanded="false" aria-controls="details"><i class="fa fa-caret-right fa-fw"></i>More details</a>
-          <div class="collapse" id="details">
-            <p>{{ data['data']['attributes']['government_response']['details']|urlize(40) }}</p>
+          {% if data['data']['attributes']['response_threshold_reached_at'] %}
+            {% if data['data']['attributes']['government_response'] %}
+            <p>{{ data['data']['attributes']['government_response']['summary']|urlize(40) }}</p>
+            <a role="button" data-toggle="collapse" href="#details" aria-expanded="false" aria-controls="details"><i class="fa fa-caret-right fa-fw"></i>More details</a>
+            <div class="collapse" id="details">
+              <p>{{ data['data']['attributes']['government_response']['details']|urlize(40) }}</p>
+            </div>
+            {% else %}
+            <p>Awaiting response</p>
+            {% endif %}
+          {% else %}
+          <p>{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% of 10000 signatures needed for government response.</p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 10000 * 100 }}%;">
+              <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% Complete</span>
+            </div>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endif %}
 
 {% if data['data']['attributes']['rejection'] %}
+<!-- Rejection Panel -->
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -151,7 +150,8 @@
 </div>
 {% endif %}
 
-{% if data['data']['attributes']['debate'] %}
+
+<!-- Debate Panel -->
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -159,26 +159,46 @@
         <div class="list-group-item">
           <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
         </div>
-        {% if data['data']['attributes']['debate']['transcript_url'] %}
+        {% if data['data']['attributes']['debate_threshold_reached_at'] %}
+          {% if data['data']['attributes']['debate'] %}
+            {% if data['data']['attributes']['debate']['transcript_url'] %}
+            <div class="list-group-item">
+              <p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>
+            </div>
+            {% endif %}
+            {% if data['data']['attributes']['debate']['video_url'] %}
+            <div class="list-group-item">
+              <p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>
+            </div>
+            {% endif %}
+            {% if data['data']['attributes']['debate']['overview'] %}
+            <div class="list-group-item">
+              <p>{{ data['data']['attributes']['debate']['overview']|urlize(40) }}</p>
+            </div>
+            {% endif %}
+          {% else %}
+            <div class="list-group-item">
+              {% if data['data']['attributes']['scheduled_debate_date'] %}
+              <p>This will be debated in parliament on {{ data['data']['attributes']['scheduled_debate_date'] }}</p>
+              {% else %}
+              <p>Awaiting debate date</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% else %}
         <div class="list-group-item">
-          <p><a href="{{data['data']['attributes']['debate']['transcript_url']}}"><i class="fa fa-file-text-o fa-fw"></i> Transcript</a></p>
-        </div>
-        {% endif %}
-        {% if data['data']['attributes']['debate']['video_url'] %}
-        <div class="list-group-item">
-          <p><a href="{{data['data']['attributes']['debate']['video_url']}}"><i class="fa fa-video-camera fa-fw"></i> Video</a></p>
-        </div>
-        {% endif %}
-        {% if data['data']['attributes']['debate']['overview'] %}
-        <div class="list-group-item">
-          <p>{{ data['data']['attributes']['debate']['overview']|urlize(40) }}</p>
+          <p>{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% of 100000 signatures needed for parlimentary debate.</p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 100000 * 100 }}%;">
+              <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% Complete</span>
+            </div>
+          </div>
         </div>
         {% endif %}
       </div>
     </div>
   </div>
 </div>
-{% endif %}
 
 <div class="row">
   <div class="col-md-6">
