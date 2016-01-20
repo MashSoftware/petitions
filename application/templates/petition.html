@@ -50,9 +50,9 @@
               {% if data['data']['attributes']['created_at'] %}<p><b>{{ data['data']['attributes']['created_at'] }}:</b> Created by {{ data['data']['attributes']['creator_name'] }}.</p>{% endif %}
               {% if data['data']['attributes']['moderation_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['moderation_threshold_reached_at'] }}:</b> Moderation threshold reached.</p>{% endif %}
               {% if data['data']['attributes']['open_at'] %}<p><b>{{ data['data']['attributes']['open_at'] }}:</b> Opened.</p> {% endif %}
-              {% if data['data']['attributes']['response_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['response_threshold_reached_at'] }}:</b> 10000 signature response threshold reached.</p>{% endif %}
+              {% if data['data']['attributes']['response_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['response_threshold_reached_at'] }}:</b> 10000 signature response target met.</p>{% endif %}
               {% if data['data']['attributes']['government_response_at'] %}<p><b>{{ data['data']['attributes']['government_response_at'] }}:</b> Government responded.</p>{% endif %}
-              {% if data['data']['attributes']['debate_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['debate_threshold_reached_at'] }}:</b> 100000 signature debate threshold reached.</p>{% endif %}
+              {% if data['data']['attributes']['debate_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['debate_threshold_reached_at'] }}:</b> 100000 signature debate target met.</p>{% endif %}
               {% if data['data']['attributes']['debate_outcome_at'] %}<p><b>{{ data['data']['attributes']['debate_outcome_at'] }}:</b> Debate outcome.</p>{% endif %}
             </div>
           </div>
