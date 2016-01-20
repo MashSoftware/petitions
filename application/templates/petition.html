@@ -116,10 +116,16 @@
               <p>{{ data['data']['attributes']['government_response']['details']|urlize(40) }}</p>
             </div>
             {% else %}
-            <p>Awaiting response</p>
+            <p><b>Response target met:</b> Awaiting response</p>
+            <p>{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% of 10000 signatures needed.</p>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 10000 * 100 }}%;">
+                <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% Complete</span>
+              </div>
+            </div>
             {% endif %}
           {% else %}
-          <p>{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% of 10000 signatures needed for government response.</p>
+          <p>{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% of 10000 signatures needed.</p>
           <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 10000 * 100 }}%;">
               <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 10000 * 100 }}% Complete</span>
@@ -179,15 +185,27 @@
           {% else %}
             <div class="list-group-item">
               {% if data['data']['attributes']['scheduled_debate_date'] %}
-              <p>This will be debated in parliament on {{ data['data']['attributes']['scheduled_debate_date'] }}</p>
+              <p><b>Debate target met:</b> Scheduled for {{ data['data']['attributes']['scheduled_debate_date'] }}.</p>
+              <p>{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% of 100000 signatures needed</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 100000 * 100 }}%;">
+                  <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% Complete</span>
+                </div>
+              </div>
               {% else %}
-              <p>Awaiting debate date</p>
+              <p><b>Debate target met:</b> Awaiting debate date.</p>
+              <p>{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% of 100000 signatures needed.</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 100000 * 100 }}%;">
+                  <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% Complete</span>
+                </div>
+              </div>
               {% endif %}
             </div>
           {% endif %}
         {% else %}
         <div class="list-group-item">
-          <p>{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% of 100000 signatures needed for parlimentary debate.</p>
+          <p>{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% of 100000 signatures needed.</p>
           <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data['data']['attributes']['signature_count'] / 100000 * 100 }}%;">
               <span class="sr-only">{{ data['data']['attributes']['signature_count'] / 100000 * 100 }}% Complete</span>
