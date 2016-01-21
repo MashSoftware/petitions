@@ -9,7 +9,18 @@
         <li class="active">{{ data['data']['id'] }}</li>
       </ol>
       <h3><b>Petition:</b> {{ data['data']['attributes']['action'] }}</h3>
-      <p class="lead">{{ data['data']['attributes']['signature_count'] }} signatures as of {{ data['data']['attributes']['updated_at'] }}</p>
+      <p class="lead">
+        <span class="label {% if data['data']['attributes']['state'] == 'open' %}label-success{% else %}label-danger{% endif %}">
+          {% if data['data']['attributes']['state'] == 'open' %}
+            <i class="fa fa-unlock fa-fw"></i>
+          {% elif data['data']['attributes']['state'] == 'closed' %}
+            <i class="fa fa-lock fa-fw"></i>
+          {% elif data['data']['attributes']['state'] == 'rejected' %}
+            <i class="fa fa-times fa-fw"></i>
+          {% endif %}
+          {{data['data']['attributes']['state']|capitalize}}
+        </span> {{ data['data']['attributes']['signature_count'] }} signatures as of {{ data['data']['attributes']['updated_at'] }}
+      </p>
     </div>
   </div>
 </div>
