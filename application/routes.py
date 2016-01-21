@@ -11,14 +11,12 @@ def index():
 
 @app.route('/petitions', methods=["GET"])
 def petitions():
-    if request.args.get('page'):
-        url = 'https://petition.parliament.uk/petitions.json?page=' + request.args.get('page')
-    else:
-        url = 'https://petition.parliament.uk/petitions.json'
+    args = request.args.items()
+    url = 'https://petition.parliament.uk/petitions.json?' + ''.join("%s=%s&" % tup for tup in args)
     page = request.args.get('page')
     r = requests.get(url)
     data = json.loads(r.text)
-    return render_template('petitions.html', data=data, page=page)
+    return render_template('petitions.html', data=data, page=page, args=args)
 
 @app.route('/petitions/<id>', methods=["GET"])
 def petition(id):
