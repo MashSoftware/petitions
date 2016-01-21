@@ -47,7 +47,7 @@
               <h5 class="list-group-item-heading"><i class="fa fa-history fa-fw"></i> History</h5>
             </div>
             <div class="list-group-item">
-              {% if data['data']['attributes']['created_at'] %}<p><b>{{ data['data']['attributes']['created_at'] }}:</b> Created by {{ data['data']['attributes']['creator_name'] }}.</p>{% endif %}
+              {% if data['data']['attributes']['created_at'] %}<p><b>{{ data['data']['attributes']['created_at'] }}:</b>{% if data['data']['attributes']['creator_name'] %} Created by {{ data['data']['attributes']['creator_name'] }}.{% else %} Created.{% endif %}</p>{% endif %}
               {% if data['data']['attributes']['moderation_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['moderation_threshold_reached_at'] }}:</b> Moderation threshold reached.</p>{% endif %}
               {% if data['data']['attributes']['open_at'] %}<p><b>{{ data['data']['attributes']['open_at'] }}:</b> Opened.</p> {% endif %}
               {% if data['data']['attributes']['response_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['response_threshold_reached_at'] }}:</b> 10,000 signature response target met.</p>{% endif %}
@@ -73,7 +73,7 @@
           var map = L.map('map').setView([54.525564, -3.921976], 5);
 
           L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. Powered by <a href="http://mapit.mysociety.org/">MapIt</a>'
           }).addTo(map);
 
           var myStyle = {
