@@ -66,6 +66,7 @@
               {% if data['data']['attributes']['debate_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['debate_threshold_reached_at'] }}:</b> 100,000 signature debate target met.</p>{% endif %}
               {% if data['data']['attributes']['debate_outcome_at'] %}<p><b>{{ data['data']['attributes']['debate_outcome_at'] }}:</b> Debate outcome.</p>{% endif %}
               {% if data['data']['attributes']['closed_at'] %}<p><b>{{ data['data']['attributes']['closed_at'] }}:</b> Closed.</p>{% endif %}
+              {% if data['data']['attributes']['rejected_at'] %}<p><b>{{ data['data']['attributes']['rejected_at'] }}:</b> Rejected.</p>{% endif %}
             </div>
           </div>
         </div>
@@ -111,6 +112,26 @@
   </div>
 </div>
 
+{% if data['data']['attributes']['rejection'] %}
+<!-- Rejection Panel -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-ban fa-fw"></i> Rejection: {{ data['data']['attributes']['rejection']['code']|capitalize }}<small class="pull-right">{{ data['data']['attributes']['rejected_at'] }}</small></h5>
+        </div>
+        <div class="list-group-item">
+          <p>{{ data['data']['attributes']['rejection']['details']|urlize(40) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endif %}
+
 <!-- Response Panel -->
 <div class="row">
   <div class="col-md-12">
@@ -149,25 +170,6 @@
     </div>
   </div>
 </div>
-
-{% if data['data']['attributes']['rejection'] %}
-<!-- Rejection Panel -->
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="list-group">
-        <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-ban fa-fw"></i> Rejection: {{ data['data']['attributes']['rejection']['code']|capitalize }}<small class="pull-right">{{ data['data']['attributes']['rejected_at'] }}</small></h5>
-        </div>
-        <div class="list-group-item">
-          <p>{{ data['data']['attributes']['rejection']['details']|urlize(40) }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-
 
 <!-- Debate Panel -->
 <div class="row">
