@@ -1,7 +1,7 @@
 import json
 import requests
 from application import app
-from application.utils import get_mp_data, constituency_extent, constituency_collection
+from application.utils import get_mp, constituency_extent, constituency_collection
 from flask import render_template, request
 from operator import itemgetter
 
@@ -30,8 +30,14 @@ def petition(id):
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
+    for constituency in sorted_constituencies [:10]:
+        mp = get_mp(constituency['name'])
+        constituency['party'] = mp['party']
+        constituency['url'] = mp['url']
+
     extents = constituency_collection(sorted_constituencies)
 
+    print sorted_countries
     return render_template('petition.html',
         data=data,
         countries=sorted_countries,
@@ -46,6 +52,11 @@ def map(id):
 
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
+
+    for constituency in sorted_constituencies [:10]:
+        mp = get_mp(constituency['name'])
+        constituency['party'] = mp['party']
+        constituency['url'] = mp['url']
 
     extents = constituency_collection(sorted_constituencies)
 
