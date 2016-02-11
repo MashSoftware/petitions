@@ -2,8 +2,6 @@ from flask import Flask
 
 app = Flask(__name__)
 
-app.config.from_pyfile("config.py")
-
 from application import routes
 
 # Set up logging if application has not been started in debug mode
