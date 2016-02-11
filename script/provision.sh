@@ -9,8 +9,11 @@ apt-get -qq -y upgrade
 echo 'Installing Pip...'
 apt-get -qq -y install python-pip
 
+echo 'Upgrade Pip...'
+pip install --upgrade pip
+
 echo 'Installing VirtualEnv...'
-pip install virtualenv
+pip install virtualenv --upgrade
 
 echo 'Create VirtualEnv...'
 virtualenv venv
@@ -26,4 +29,3 @@ apt-get -qq autoclean
 apt-get -qq autoremove
 
 echo 'Done!'
-echo 'You must set your "They Work For You API Key": export TWFY_API_KEY=<API_KEY>'
