@@ -34,10 +34,11 @@ def petition(id):
         mp = get_mp(constituency['name'])
         constituency['party'] = mp['party']
         constituency['url'] = mp['url']
+        if 'image' in mp:
+            constituency['mp_image'] = mp['image']
 
     extents = constituency_collection(sorted_constituencies)
 
-    print sorted_countries
     return render_template('petition.html',
         data=data,
         countries=sorted_countries,
