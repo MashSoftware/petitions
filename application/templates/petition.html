@@ -244,7 +244,7 @@
           <tr>
             <th>Rank</th>
             <th>Constituency</th>
-            <th>MP</th>
+            <th colspan="2">MP</th>
             <th>Party</th>
             <th>Signatories</th>
           </tr>
@@ -254,7 +254,20 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ constituency.name }}</td>
-            <td>{% if constituency.url %}<a href="http://www.theyworkforyou.com{{constituency.url}}">{{constituency.mp}}</a>{% else %}{{constituency.mp}}{% endif %}</td>
+            <td>
+              {% if constituency.mp_image %}
+              <img src="http://www.theyworkforyou.com{{constituency.mp_image}}" width="50px">
+              {% else %}
+              <img src="http://fakeimg.pl/98x118/?text=No Photo" width="50px">
+              {% endif %}
+            </td>
+            <td>
+              {% if constituency.url %}
+              <a href="http://www.theyworkforyou.com{{constituency.url}}">{{constituency.mp}}</a>
+              {% else %}
+                {{constituency.mp}}
+              {% endif %}
+            </td>
             <td>{% if constituency.party %}{{ constituency.party }}{% endif %}</td>
             <td>{{ constituency.signature_count }}</td>
           </tr>
