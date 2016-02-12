@@ -67,7 +67,7 @@
               {% elif petition.attributes.response_threshold_reached_at %}
               <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Response
               {% else %}
-              {{ petition.attributes.signature_count / 10000 * 100 }}%
+              <i class="fa fa-times fa-fw text-danger"></i> {{ petition.attributes.signature_count / 10000 * 100 }}%
               {% endif %}
             </td>
             <td>
@@ -78,7 +78,7 @@
               {% elif petition.attributes.debate_threshold_reached_at %}
               <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Debate
               {% else %}
-              {{ petition.attributes.signature_count / 100000 * 100 }}%
+              <i class="fa fa-times fa-fw text-danger"></i> {{ petition.attributes.signature_count / 100000 * 100 }}%
               {% endif %}
             </td>
           </tr>
