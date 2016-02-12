@@ -3,11 +3,27 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="container">
-      <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-home fa-fw"></i></a></li>
-        <li class="active">Petitions</li>
-      </ol>
       <h3>Parliamentary Petitions</h3>
+      {% if args %}
+        {%for key,value in args %}
+          {% if key == 'q' %}
+          <p class="lead">All petitions containing "{{value}}"</p>
+          {% endif %}
+          {% if key == 'state' %}
+            {% if value == 'with_response' %}
+            <p class="lead">Petitions with a response</p>
+            {% elif value == 'awaiting_response' %}
+            <p class="lead">Petitions awaiting a response</p>
+            {% elif value == 'awaiting_debate' %}
+            <p class="lead">Petitions awaiting debate</p>
+            {% elif value == 'not_debated' %}
+            <p class="lead">Petitions that will not be debated</p>
+            {% else %}
+            <p class="lead">{{value|capitalize}} petitions</p>
+            {% endif %}
+          {% endif %}
+        {%endfor%}
+      {%endif%}
     </div>
   </div>
 </div>
@@ -34,33 +50,33 @@
             <td><i class="fa fa-user fa-fw"></i> {{ petition.attributes.signature_count }}</td>
             <td>
               {% if petition.attributes.state == 'open' %}
-                <i class="fa fa-unlock fa-fw text-success"></i> {{ petition.attributes.state |capitalize }}
+              <i class="fa fa-unlock fa-fw text-success"></i> {{ petition.attributes.state |capitalize }}
               {% elif petition.attributes.state == 'closed' %}
-                <i class="fa fa-lock fa-fw text-danger"></i> {{ petition.attributes.state |capitalize }}
+              <i class="fa fa-lock fa-fw text-danger"></i> {{ petition.attributes.state |capitalize }}
               {% elif petition.attributes.state == 'rejected' %}
-                <i class="fa fa-times fa-fw text-danger"></i> {{ petition.attributes.state |capitalize }}
+              <i class="fa fa-times fa-fw text-danger"></i> {{ petition.attributes.state |capitalize }}
               {% else %}
-                {{ petition.attributes.state |capitalize }}
+              {{ petition.attributes.state |capitalize }}
               {% endif %}
             </td>
             <td>
               {% if petition.attributes.government_response %}
-                <i class="fa fa-check fa-fw text-success"></i> Responded
+              <i class="fa fa-check fa-fw text-success"></i> Responded
               {% elif petition.attributes.response_threshold_reached_at %}
-                <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Response
+              <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Response
               {% else %}
-                <i class="fa fa-times fa-fw text-danger"></i> No Response
+              <i class="fa fa-times fa-fw text-danger"></i> No Response
               {% endif %}
             </td>
             <td>
               {% if petition.attributes.debate.debated_on %}
-                <i class="fa fa-check fa-fw text-success"></i> Debated
+              <i class="fa fa-check fa-fw text-success"></i> Debated
               {% elif petition.attributes.debate.debated_on is none %}
-                <i class="fa fa-times fa-fw text-danger"></i> Not Debated
+              <i class="fa fa-ban fa-fw text-danger"></i> Not Debated
               {% elif petition.attributes.debate_threshold_reached_at %}
-                <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Debate
+              <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Debate
               {% else %}
-                <i class="fa fa-times fa-fw text-danger"></i> No Debate
+              <i class="fa fa-times fa-fw text-danger"></i> No Debate
               {% endif %}
             </td>
           </tr>
