@@ -3,7 +3,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="container">
-      <h3>Parliamentary Petitions</h3>
+      <h3>UK Government and Parliament Petitions</h3>
       {% if args %}
         {%for key,value in args %}
           {% if key == 'q' %}
@@ -11,13 +11,15 @@
           {% endif %}
           {% if key == 'state' %}
             {% if value == 'with_response' %}
-            <p class="lead">Petitions with a response</p>
+            <p class="lead">Petitions with a Government response</p>
             {% elif value == 'awaiting_response' %}
-            <p class="lead">Petitions awaiting a response</p>
+            <p class="lead">Petitions waiting for a Government response</p>
             {% elif value == 'awaiting_debate' %}
-            <p class="lead">Petitions awaiting debate</p>
+            <p class="lead">Petitions waiting for a debate in Parliament</p>
             {% elif value == 'not_debated' %}
-            <p class="lead">Petitions that will not be debated</p>
+            <p class="lead">Petitions not debated in Parliament</p>
+            {% elif value == 'debated' %}
+            <p class="lead">Petitions debated in Parliament</p>
             {% else %}
             <p class="lead">{{value|capitalize}} petitions</p>
             {% endif %}
@@ -65,7 +67,7 @@
               {% elif petition.attributes.response_threshold_reached_at %}
               <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Response
               {% else %}
-              <i class="fa fa-times fa-fw text-danger"></i> No Response
+              {{ petition.attributes.signature_count / 10000 * 100 }}%
               {% endif %}
             </td>
             <td>
@@ -76,7 +78,7 @@
               {% elif petition.attributes.debate_threshold_reached_at %}
               <i class="fa fa-hourglass-half fa-fw text-warning"></i> Awaiting Debate
               {% else %}
-              <i class="fa fa-times fa-fw text-danger"></i> No Debate
+              {{ petition.attributes.signature_count / 100000 * 100 }}%
               {% endif %}
             </td>
           </tr>
