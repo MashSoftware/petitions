@@ -14,7 +14,7 @@
             <i class="fa fa-times fa-fw"></i>
           {% endif %}
           {{data['data']['attributes']['state']|capitalize}}
-        </span> {{ data['data']['attributes']['signature_count'] }} signatures as of {{ data['data']['attributes']['updated_at'] }}
+        </span> {{ data['data']['attributes']['signature_count'] }} signatures as of {% for event in events %}{% if event.type == 'updated_at' %}{{event.date}} at {{event.time}}{% endif %}{% endfor %}
       </p>
     </div>
   </div>
@@ -54,15 +54,36 @@
               <h5 class="list-group-item-heading"><i class="fa fa-history fa-fw"></i> History</h5>
             </div>
             <div class="list-group-item">
-              {% if data['data']['attributes']['created_at'] %}<p><b>{{ data['data']['attributes']['created_at'] }}:</b>{% if data['data']['attributes']['creator_name'] %} Created by {{ data['data']['attributes']['creator_name'] }}.{% else %} Created.{% endif %}</p>{% endif %}
-              {% if data['data']['attributes']['moderation_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['moderation_threshold_reached_at'] }}:</b> Moderation threshold reached.</p>{% endif %}
-              {% if data['data']['attributes']['open_at'] %}<p><b>{{ data['data']['attributes']['open_at'] }}:</b> Opened.</p> {% endif %}
-              {% if data['data']['attributes']['response_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['response_threshold_reached_at'] }}:</b> 10,000 signature response target met.</p>{% endif %}
-              {% if data['data']['attributes']['government_response_at'] %}<p><b>{{ data['data']['attributes']['government_response_at'] }}:</b> Government responded.</p>{% endif %}
-              {% if data['data']['attributes']['debate_threshold_reached_at'] %}<p><b>{{ data['data']['attributes']['debate_threshold_reached_at'] }}:</b> 100,000 signature debate target met.</p>{% endif %}
-              {% if data['data']['attributes']['debate_outcome_at'] %}<p><b>{{ data['data']['attributes']['debate_outcome_at'] }}:</b> Debate outcome.</p>{% endif %}
-              {% if data['data']['attributes']['closed_at'] %}<p><b>{{ data['data']['attributes']['closed_at'] }}:</b> Closed.</p>{% endif %}
-              {% if data['data']['attributes']['rejected_at'] %}<p><b>{{ data['data']['attributes']['rejected_at'] }}:</b> Rejected.</p>{% endif %}
+              {% for event in events %}
+                <p>
+                  <b>{{event.date}} at {{event.time}}:</b>
+                  {% if event.type == 'created_at' %}
+                    {% if data['data']['attributes']['creator_name'] %}
+                      Created by {{data['data']['attributes']['creator_name']}}.
+                    {% else %}
+                      Created.
+                    {% endif %}
+                  {% elif event.type == 'updated_at' %}
+                    Last updated.
+                  {% elif event.type == 'open_at' %}
+                    Opened.
+                  {% elif event.type == 'closed_at' %}
+                    Closed.
+                  {% elif event.type == 'government_response_at' %}
+                    Government responded.
+                  {% elif event.type == 'debate_threshold_reached_at' %}
+                    100,000 signature debate target met.
+                  {% elif event.type == 'rejected_at' %}
+                    Rejected.
+                  {% elif event.type == 'debate_outcome_at' %}
+                    Debate outcome.
+                  {% elif event.type == 'moderation_threshold_reached_at' %}
+                    Moderated.
+                  {% elif event.type == 'response_threshold_reached_at' %}
+                    10,000 signature response target met.
+                  {% endif %}
+                </p>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -118,7 +139,7 @@
     <div class="panel panel-default">
       <div class="list-group">
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-ban fa-fw"></i> Rejection: {{ data['data']['attributes']['rejection']['code']|capitalize }}<small class="pull-right">{{ data['data']['attributes']['rejected_at'] }}</small></h5>
+          <h5 class="list-group-item-heading"><i class="fa fa-ban fa-fw"></i> Rejection: {{ data['data']['attributes']['rejection']['code']|capitalize }}</h5>
         </div>
         <div class="list-group-item">
           <p>{{ data['data']['attributes']['rejection']['details']|urlize(40) }}</p>
@@ -137,7 +158,7 @@
     <div class="panel panel-default">
       <div class="list-group">
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Response <small class="pull-right">{{ data['data']['attributes']['government_response']['updated_at'] }}</small></h5>
+          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Response</h5>
         </div>
         <div class="list-group-item">
           {% if data['data']['attributes']['response_threshold_reached_at'] %}
@@ -176,7 +197,7 @@
     <div class="panel panel-default">
       <div class="list-group">
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Debate <small class="pull-right">{{ data['data']['attributes']['debate']['debated_on'] }}</small></h5>
+          <h5 class="list-group-item-heading"><i class="fa fa-comments-o fa-fw"></i> Debate</h5>
         </div>
         {% if data['data']['attributes']['debate_threshold_reached_at'] %}
           {% if data['data']['attributes']['debate'] %}

@@ -1,7 +1,7 @@
 import json
 import requests
 from application import app
-from application.utils import get_mp, constituency_extent, constituency_collection
+from application.utils import get_mp, constituency_extent, constituency_collection, petition_events
 from flask import render_template, request
 from operator import itemgetter
 
@@ -39,11 +39,14 @@ def petition(id):
 
     extents = constituency_collection(sorted_constituencies)
 
+    events = petition_events(data)
+
     return render_template('petition.html',
         data=data,
         countries=sorted_countries,
         constituencies=sorted_constituencies,
-        extents=extents)
+        extents=extents,
+        events=events)
 
 @app.route('/petitions/<id>/map', methods=["GET"])
 def map(id):
