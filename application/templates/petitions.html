@@ -32,6 +32,9 @@
 {% endblock %}
 
 {% block content %}
+{% if data['data']|length == 0 %}
+  <div class="alert alert-danger" role="alert">No petitions found.</div>
+{% else %}
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -98,4 +101,5 @@
     </nav>
   </div>
 </div>
+{% endif %}
 {% endblock %}
