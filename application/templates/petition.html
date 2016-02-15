@@ -277,9 +277,9 @@
             <td>{{ constituency.name }}</td>
             <td>
               {% if constituency.mp_image %}
-              <img src="http://www.theyworkforyou.com{{constituency.mp_image}}" width="50px">
+              <img src="http://www.theyworkforyou.com{{constituency.mp_image}}" width="50px" alt="{{constituency.mp}}">
               {% else %}
-              <img src="http://fakeimg.pl/98x118/?text=No Photo" width="50px">
+              <img src="http://fakeimg.pl/98x118/?text=No Photo" width="50px" alt="{{constituency.mp}}">
               {% endif %}
             </td>
             <td>
