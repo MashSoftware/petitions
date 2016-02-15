@@ -7,7 +7,7 @@
       {% if args %}
         {%for key,value in args %}
           {% if key == 'q' %}
-          <p class="lead">All petitions containing "{{value}}"</p>
+          <p class="lead">Petitions containing "{{value}}"</p>
           {% endif %}
           {% if key == 'state' %}
             {% if value == 'with_response' %}
@@ -33,7 +33,7 @@
 
 {% block content %}
 {% if data['data']|length == 0 %}
-  <div class="alert alert-danger" role="alert">No petitions found.</div>
+  <div class="alert alert-danger" role="alert">No petitions could be found matching your search terms.</div>
 {% else %}
 <div class="row">
   <div class="col-md-12">
