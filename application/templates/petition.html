@@ -31,7 +31,7 @@
         <div class="panel panel-default">
           <div class="list-group">
             <div class="list-group-item">
-              <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Background</h5>
+              <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Details</h5>
             </div>
             <div class="list-group-item">
               <p>{{ data['data']['attributes']['background']|urlize(40) }}</p>
@@ -43,6 +43,11 @@
               {% endif %}
             </div>
           </div>
+          {% if data['data']['attributes']['state'] == 'open' %}
+          <div class="panel-footer">
+            <a class="btn btn-success" href="https://petition.parliament.uk/petitions/{{data['data']['id']}}/signatures/new" role="button"><i class="fa fa-pencil fa-fw"></i> Sign now</a>
+          </div>
+          {% endif %}
         </div>
       </div>
 
@@ -139,7 +144,7 @@
     <div class="panel panel-default">
       <div class="list-group">
         <div class="list-group-item">
-          <h5 class="list-group-item-heading"><i class="fa fa-ban fa-fw"></i> Rejection: {{ data['data']['attributes']['rejection']['code']|capitalize }}</h5>
+          <h5 class="list-group-item-heading"><i class="fa fa-times fa-fw text-danger"></i> Rejected: {{ data['data']['attributes']['rejection']['code']|capitalize }}</h5>
         </div>
         <div class="list-group-item">
           <p>{{ data['data']['attributes']['rejection']['details']|urlize(40) }}</p>
