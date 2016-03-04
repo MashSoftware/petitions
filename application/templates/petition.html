@@ -45,7 +45,7 @@
           </div>
           {% if data['data']['attributes']['state'] == 'open' %}
           <div class="panel-footer">
-            <a class="btn btn-success" href="https://petition.parliament.uk/petitions/{{data['data']['id']}}/signatures/new" role="button"><i class="fa fa-pencil fa-fw"></i> Sign now</a>
+            <a class="btn btn-success" href="https://petition.parliament.uk/petitions/{{data['data']['id']}}/signatures/new" role="button" target="_blank"><i class="fa fa-pencil fa-fw"></i> Sign now</a>
           </div>
           {% endif %}
         </div>
@@ -289,7 +289,7 @@
             </td>
             <td>
               {% if constituency.url %}
-              <a href="http://www.theyworkforyou.com{{constituency.url}}">{{constituency.mp}}</a>
+              <a href="http://www.theyworkforyou.com{{constituency.url}}" target="_blank">{{constituency.mp}}</a>
               {% else %}
                 {{constituency.mp}}
               {% endif %}
