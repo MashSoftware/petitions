@@ -7,22 +7,26 @@ from operator import itemgetter
 
 @app.route('/', methods=["GET"])
 def index():
-    return render_template('index.html')
+    title='Home'
+    return render_template('index.html', title=title)
 
 @app.route('/petitions', methods=["GET"])
 def petitions():
+    title='Petitions'
     args = request.args.items()
     url = 'https://petition.parliament.uk/petitions.json?' + ''.join("%s=%s&" % tup for tup in args)
     page = request.args.get('page')
     r = requests.get(url)
     data = json.loads(r.text)
-    return render_template('petitions.html', data=data, page=page, args=args)
+    return render_template('petitions.html', title=title, data=data, page=page, args=args)
 
 @app.route('/petitions/<id>', methods=["GET"])
 def petition(id):
     url = 'https://petition.parliament.uk/petitions/' + id + '.json'
     r = requests.get(url)
     data = json.loads(r.text)
+
+    title = data['data']['attributes']['action']
 
     countries = data['data']['attributes']['signatures_by_country']
     sorted_countries = sorted(countries, key=itemgetter('signature_count'), reverse=True)
@@ -42,6 +46,7 @@ def petition(id):
     events = petition_events(data)
 
     return render_template('petition.html',
+        title=title,
         data=data,
         countries=sorted_countries,
         constituencies=sorted_constituencies,
@@ -54,6 +59,8 @@ def map(id):
     r = requests.get(url)
     data = json.loads(r.text)
 
+    title = data['data']['attributes']['action']
+
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
@@ -65,4 +72,5 @@ def map(id):
     extents = constituency_collection(sorted_constituencies)
 
     return render_template('map.html',
+        title=title,
         extents=extents)
