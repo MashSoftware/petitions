@@ -3,7 +3,7 @@ import requests
 import geojson
 from geojson import Polygon, Feature, FeatureCollection
 from operator import itemgetter
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def get_mp(constituency):
     api_key = 'GEd7VBGHYis2AAXETMAhu9YD'
@@ -40,6 +40,7 @@ def constituency_collection(constituencies):
 
 def petition_events(petition):
     events=[]
+    date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
     for k,v in petition['data']['attributes'].items():
         if '_at' in k:
             if v is not None:
@@ -48,9 +49,14 @@ def petition_events(petition):
                 event['type'] = k
                 events.append(event)
 
-    sorted_events = sorted(events, key=itemgetter('datetime'))
-    for event in sorted_events:
-        event['date'] = datetime.strptime(event['datetime'],"%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d %B %Y")
-        event['time'] = datetime.strptime(event['datetime'],"%Y-%m-%dT%H:%M:%S.%fZ").strftime("%I:%M:%S%p")
 
+    sorted_events = sorted(events, key=itemgetter('datetime'))
+    for index, event in enumerate(sorted_events):
+        event['date'] = datetime.strptime(event['datetime'],date_format).strftime("%d %B %Y")
+        event['time'] = datetime.strptime(event['datetime'],date_format).strftime("%H:%M:%S")
+        this_event = datetime.strptime(event['datetime'],date_format)
+        last_event = datetime.strptime(sorted_events[index -1]['datetime'],date_format)
+        delta = this_event - last_event
+        if delta > timedelta(seconds=1):
+            event['delta'] = str(delta).split(".")[0]
     return sorted_events
