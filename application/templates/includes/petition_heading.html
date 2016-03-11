@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="container">
+      <h3><b>Petition:</b> {{ data['data']['attributes']['action'] }}<br/>
+      <small>
+        <b>{{ data['data']['attributes']['signature_count'] }} signatures</b> as of {% for event in events %}{% if event.type == 'updated' %}{{event.date}} at {{event.time}}{% endif %}{% endfor %}
+      </small></h3>
+    </div>
+  </div>
+</div>
