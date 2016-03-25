@@ -74,3 +74,14 @@ def map(id):
     return render_template('map.html',
         title=title,
         extents=extents)
+
+@app.route('/petitions/<id>/history', methods=["GET"])
+def history(id):
+    url = 'https://petition.parliament.uk/petitions/' + id + '.json'
+    r = requests.get(url)
+    data = json.loads(r.text)
+
+    title = data['data']['attributes']['action']
+    events = petition_events(data)
+
+    return render_template('history.html', title=title, data=data, events=events)
