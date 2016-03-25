@@ -1,10 +1,19 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="container">
-      <h3><b>Petition:</b> {{ data['data']['attributes']['action'] }}<br/>
-      <small>
-        <b>{{ data['data']['attributes']['signature_count'] }} signatures</b> as of {% for event in events %}{% if event.type == 'updated' %}{{event.date}} at {{event.time}}{% endif %}{% endfor %}
-      </small></h3>
+      <h3>
+        {% if data['data']['attributes']['state'] == 'open' %}
+        <b><i class="fa fa-unlock fa-fw text-success"></i> {{data['data']['attributes']['state']|capitalize}} petition:</b>
+        {% elif data['data']['attributes']['state'] == 'closed' %}
+        <b><i class="fa fa-lock fa-fw text-danger"></i> {{data['data']['attributes']['state']|capitalize}} petition:</b>
+        {% elif data['data']['attributes']['state'] == 'rejected' %}
+        <b><i class="fa fa-times fa-fw text-danger"></i> {{data['data']['attributes']['state']|capitalize}} petition:</b>
+        {% endif %}
+        {{ data['data']['attributes']['action'] }}<br/>
+        <small>
+          <b>{{ data['data']['attributes']['signature_count'] }} signatures</b> as of {% for event in events %}{% if event.type == 'updated' %}{{event.date}} at {{event.time}}{% endif %}{% endfor %}
+        </small>
+      </h3>
     </div>
   </div>
 </div>
