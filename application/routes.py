@@ -1,7 +1,7 @@
 import json
 import requests
 from application import app
-from application.utils import get_mp, constituency_extent, constituency_collection, petition_events
+from application.utils import get_mp, constituency_extent, constituency_collection, petition_events, petition_deadline
 from flask import render_template, request
 from operator import itemgetter
 
@@ -44,6 +44,7 @@ def petition(id):
     extents = constituency_collection(sorted_constituencies)
 
     events = petition_events(data)
+    deadline = petition_deadline(data)
 
     return render_template('petition.html',
         title=title,
@@ -83,5 +84,6 @@ def history(id):
 
     title = data['data']['attributes']['action']
     events = petition_events(data)
+    deadline = petition_deadline(data)
 
     return render_template('history.html', title=title, data=data, events=events)
