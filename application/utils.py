@@ -66,11 +66,14 @@ def petition_deadline(petition):
     now = datetime.utcnow()
 
     deadline={}
-    deadline_datetime = datetime.strptime(petition['data']['attributes']['open_at'], date_format) + timedelta(days=182)
-    deadline['datetime'] = deadline_datetime.strftime(date_format)
-    deadline['date'] = deadline_datetime.strftime("%d %B %Y")
-    deadline['time'] = deadline_datetime.strftime("%H:%M:%S")
-    delta = now - deadline_datetime
-    deadline['delta'] = str(delta).split(".")[0]
-
+    if petition['data']['attributes']['open_at']:
+        deadline_datetime = datetime.strptime(petition['data']['attributes']['open_at'], date_format) + timedelta(days=182)
+        deadline['datetime'] = deadline_datetime.strftime(date_format)
+        deadline['date'] = deadline_datetime.strftime("%d %B %Y")
+        deadline['time'] = deadline_datetime.strftime("%H:%M:%S")
+        deadline['type'] = 'deadline'
+        delta = now - deadline_datetime
+        deadline['delta'] = str(delta).split(".")[0]
+    else:
+        deadline = None
     return deadline
