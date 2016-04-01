@@ -52,7 +52,8 @@ def petition(id):
         countries=sorted_countries,
         constituencies=sorted_constituencies,
         extents=extents,
-        events=events)
+        events=events,
+        deadline=deadline)
 
 @app.route('/petitions/<id>/map', methods=["GET"])
 def map(id):
@@ -86,4 +87,8 @@ def history(id):
     events = petition_events(data)
     deadline = petition_deadline(data)
 
-    return render_template('history.html', title=title, data=data, events=events)
+    return render_template('history.html',
+        title=title,
+        data=data,
+        events=events,
+        deadline=deadline)
