@@ -11,7 +11,7 @@
         {% endif %}
         {{ data['data']['attributes']['action'] }}<br/>
         <small>
-          <b>{{ data['data']['attributes']['signature_count'] }} signatures</b> as of {% for event in events %}{% if event.type == 'updated' %}{{event.date}} at {{event.time}}{% endif %}{% endfor %}
+          <b>{{ data['data']['attributes']['signature_count'] }} signatures</b> as of {% for event in events %}{% if event.type == 'updated' %}{{event.date}} at {{event.time}}{% endif %}{% endfor %}. {% if deadline %}Deadline is {{deadline.date}} ({{deadline.delta}} to go){% endif %}
         </small>
       </h3>
     </div>
