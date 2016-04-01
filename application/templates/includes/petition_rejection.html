@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading"><i class="fa fa-times fa-fw text-danger"></i> Rejected</h5>
+        </div>
+        <div class="list-group-item">
+          {% if  data['data']['attributes']['rejection']['code'] %}
+          <p class="lead"><b>Reason:</b> {{  data['data']['attributes']['rejection']['code']|capitalize }}</p>
+          {% endif %}
+          {% if data['data']['attributes']['rejection']['details'] %}
+          <p><b>Details:</b> {{ data['data']['attributes']['rejection']['details']|urlize(40) }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
