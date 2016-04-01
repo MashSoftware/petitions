@@ -48,6 +48,7 @@ def petition(id):
 
     return render_template('petition.html',
         title=title,
+        id=id,
         data=data,
         countries=sorted_countries,
         constituencies=sorted_constituencies,
@@ -75,6 +76,7 @@ def map(id):
 
     return render_template('map.html',
         title=title,
+        id=id,
         extents=extents)
 
 @app.route('/petitions/<id>/history', methods=["GET"])
@@ -89,6 +91,7 @@ def history(id):
 
     return render_template('history.html',
         title=title,
+        id=id,
         data=data,
         events=events,
         deadline=deadline)
