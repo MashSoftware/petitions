@@ -72,7 +72,7 @@ def petition_deadline(petition):
         deadline['date'] = deadline_datetime.strftime("%d %B %Y")
         deadline['time'] = deadline_datetime.strftime("%H:%M:%S")
         deadline['type'] = 'deadline'
-        delta = now - deadline_datetime
+        delta = deadline_datetime - now
         deadline['delta'] = str(delta).split(".")[0]
     else:
         deadline = None
