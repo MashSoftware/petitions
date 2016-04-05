@@ -46,9 +46,8 @@ def petition_events(petition):
             if v is not None:
                 event={}
                 event['datetime'] = v
-                event['type'] = k
+                event['type'] = k.split("_at")[0]
                 events.append(event)
-
 
     sorted_events = sorted(events, key=itemgetter('datetime'))
     for index, event in enumerate(sorted_events):
@@ -60,3 +59,21 @@ def petition_events(petition):
         if delta > timedelta(seconds=1):
             event['delta'] = str(delta).split(".")[0]
     return sorted_events
+
+def petition_deadline(petition):
+    date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+
+    now = datetime.utcnow()
+
+    deadline={}
+    if petition['data']['attributes']['open_at']:
+        deadline_datetime = datetime.strptime(petition['data']['attributes']['open_at'], date_format) + timedelta(days=182)
+        deadline['datetime'] = deadline_datetime.strftime(date_format)
+        deadline['date'] = deadline_datetime.strftime("%d %B %Y")
+        deadline['time'] = deadline_datetime.strftime("%H:%M:%S")
+        deadline['type'] = 'deadline'
+        delta = deadline_datetime - now
+        deadline['delta'] = str(delta).split(".")[0]
+    else:
+        deadline = None
+    return deadline

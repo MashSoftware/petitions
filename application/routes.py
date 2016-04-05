@@ -1,14 +1,17 @@
 import json
 import requests
 from application import app
-from application.utils import get_mp, constituency_extent, constituency_collection, petition_events
+from application.utils import get_mp, constituency_extent, constituency_collection, petition_events, petition_deadline
 from flask import render_template, request
 from operator import itemgetter
 
 @app.route('/', methods=["GET"])
 def index():
     title='Home'
-    return render_template('index.html', title=title)
+    page_url = request.url
+    return render_template('index.html',
+        title=title,
+        url=page_url)
 
 @app.route('/petitions', methods=["GET"])
 def petitions():
@@ -18,7 +21,13 @@ def petitions():
     page = request.args.get('page')
     r = requests.get(url)
     data = json.loads(r.text)
-    return render_template('petitions.html', title=title, data=data, page=page, args=args)
+    page_url = request.url
+    return render_template('petitions.html',
+        title=title,
+        url=page_url,
+        data=data,
+        page=page,
+        args=args)
 
 @app.route('/petitions/<id>', methods=["GET"])
 def petition(id):
@@ -26,6 +35,7 @@ def petition(id):
     r = requests.get(url)
     data = json.loads(r.text)
 
+    page_url = request.url
     title = data['data']['attributes']['action']
 
     countries = data['data']['attributes']['signatures_by_country']
@@ -44,14 +54,17 @@ def petition(id):
     extents = constituency_collection(sorted_constituencies)
 
     events = petition_events(data)
+    deadline = petition_deadline(data)
 
     return render_template('petition.html',
         title=title,
+        url=page_url,
         data=data,
         countries=sorted_countries,
         constituencies=sorted_constituencies,
         extents=extents,
-        events=events)
+        events=events,
+        deadline=deadline)
 
 @app.route('/petitions/<id>/map', methods=["GET"])
 def map(id):
@@ -59,6 +72,7 @@ def map(id):
     r = requests.get(url)
     data = json.loads(r.text)
 
+    page_url = request.url
     title = data['data']['attributes']['action']
 
     constituencies = data['data']['attributes']['signatures_by_constituency']
@@ -73,6 +87,7 @@ def map(id):
 
     return render_template('map.html',
         title=title,
+        url=page_url,
         extents=extents)
 
 @app.route('/petitions/<id>/history', methods=["GET"])
@@ -81,7 +96,14 @@ def history(id):
     r = requests.get(url)
     data = json.loads(r.text)
 
+    page_url = request.url
     title = data['data']['attributes']['action']
     events = petition_events(data)
+    deadline = petition_deadline(data)
 
-    return render_template('history.html', title=title, data=data, events=events)
+    return render_template('history.html',
+        title=title,
+        url=page_url,
+        data=data,
+        events=events,
+        deadline=deadline)

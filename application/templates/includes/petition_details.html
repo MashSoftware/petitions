@@ -1,0 +1,27 @@
+<!-- Details Panel -->
+<div class="panel panel-default">
+  <div class="list-group">
+    <div class="list-group-item">
+      <h5 class="list-group-item-heading"><i class="fa fa-quote-left fa-fw"></i> Details</h5>
+    </div>
+
+    <div class="list-group-item">
+      <p>{{ data['data']['attributes']['background']|urlize(40) }}</p>
+      {% if data['data']['attributes']['additional_details'] %}
+      <a role="button" data-toggle="collapse" href="#additional_details" aria-expanded="false" aria-controls="additional_details"><i class="fa fa-caret-right fa-fw"></i>More details</a>
+      <div class="collapse" id="additional_details">
+        <p>{{ data['data']['attributes']['additional_details']|urlize(40) }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="panel-footer">
+    {% if data['data']['attributes']['state'] == 'open' %}
+    <a class="btn btn-link" href="https://petition.parliament.uk/petitions/{{data['data']['id']}}/signatures/new" target="_blank" role="button" target="_blank"><i class="fa fa-pencil fa-fw"></i> Sign</a>
+    {% endif %}
+    <a class="btn btn-link" href="mailto:?subject=Mash Petitions: {{title}}&body=Petition: {{title}} on Mash Petitions {{url}}" target="_blank" rel="nofollow"><i class="fa fa-envelope fa-fw"></i> Mail</a>
+    <a class="btn btn-link" href="https://facebook.com/sharer.php?u={{url}}" target="_blank" rel="nofollow"><i class="fa fa-facebook fa-fw"></i> Share</a>
+    <a class="btn btn-link" href="https://twitter.com/intent/tweet?text=Petition: {{title}}&url={{url}}&via=MashSoftware&related=MattShaw85" target="_blank" rel="nofollow"><i class="fa fa-twitter fa-fw"></i> Tweet</a>
+    <a class="btn btn-link" href="whatsapp://send?text={{url}}" target="_blank" rel="nofollow"><i class="fa fa-whatsapp fa-fw"></i> Message</a>
+  </div>
+</div>

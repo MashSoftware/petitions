@@ -9,7 +9,7 @@ deploy:
     secure: Dc4AE8djcPHWZyudIar7xCM76plY+pen0rWGd1rcKxrlQlvmAcnU/f5WTPADnuxO0VD9UpQny/rcVe1HlZidDLo16P88wP1mrX0cg+e65P8ycrjIUul0YWnSv2vj59jWNqaE2pfPjx83kHH2K3/HwUWCGcSICl/NbC/fCsnxUGMX9lTs2dfyMf/daZtQxQ1Gao91yMZeN7on0yMjihVLkO+qGwNsNkmMQ/96EfKTgMJI4ni7qd6OfWnDC+37YLr14uOf92W5C9QZt4kl6fKRSWt8tgJ+xsaBWwC41JRX5YTisBRQLxvIGN+zWZF7Awm8vXjuPuWNN2/QJdTCRiN5HDBiM17f/CDcdN82kz/a/JHUCtG2brtTexSC9IhgeNtde2Luh4LLNngPx5HeobYsxB9HZ3Ilqz8+4XncRPrxTf8gskP4bLg+yj4pm0tlrum0H6DHaMmzSBQaA6IYBrb3gNZQAJvS99SzGiwTMu6AdO0DQkHYLyjQEaWcz6YuL/JQBsBpVwuA5NEz4UYrL4qRSOkw6apSLOJNm7TUMnlFEspS0l3NXiQ5hUI0Qxifmt9mUFNr/9CKPs7/9Efks19j22tXOd186ULh5ZAUj13f+DJrrGrQhg43S4gKFq5LY9czvHroMXKwRRmi5dNRjxlz3kDSBWegoKgv8uJ7Ui4oayE=
   app:
     master: mash-petitions
-    preview: mash-petitions-preview
+    develop: mash-petitions-preview
   on:
     repo: MashSoftware/petitions
 sudo: false
