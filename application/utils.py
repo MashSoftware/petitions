@@ -6,7 +6,7 @@ from operator import itemgetter
 from datetime import datetime
 
 def get_mp(constituency):
-    api_key = 'GEd7VBGHYis2AAXETMAhu9YD'
+    api_key = ''
     response = requests.get('http://www.theyworkforyou.com/api/getMP?key=' + api_key + '&constituency=' + constituency + '&output=js')
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
@@ -29,8 +29,8 @@ def constituency_collection(constituencies):
         feature = Feature(geometry=Polygon(constituency_extent(constituency['ons_code'])['coordinates']))
         feature.properties['name'] = constituency['name']
         feature.properties['mp'] = constituency['mp']
-        feature.properties['party'] = constituency['party']
-        feature.properties['url'] = constituency['url']
+        # feature.properties['party'] = constituency['party']
+        # feature.properties['url'] = constituency['url']
         feature.properties['signature_count'] = constituency['signature_count']
         features.append(feature)
 

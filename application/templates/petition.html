@@ -118,8 +118,8 @@
 
           function onEachFeature(feature, layer) {
             layer.bindPopup("<b>" + feature.properties.name + "</b>" +
-              "<p><i class=\"fa fa-user fa-fw\"></i> <a href=\"http://www.theyworkforyou.com" + feature.properties.url + "\">" + feature.properties.mp + "</a></p>" +
-              "<p><i class=\"fa fa-certificate fa-fw\"></i> " + feature.properties.party + " Party</p>" +
+              "<p><i class=\"fa fa-user fa-fw\"></i> " + feature.properties.mp + "</p>" +
+              // "<p><i class=\"fa fa-certificate fa-fw\"></i> " + feature.properties.party + " Party</p>" +
               "<p><i class=\"fa fa-pencil fa-fw\"></i> " + feature.properties.signature_count + " signatures</p>");
           }
 
@@ -270,8 +270,8 @@
           <tr>
             <th>Rank</th>
             <th>Constituency</th>
-            <th colspan="2">MP</th>
-            <th>Party</th>
+            <th>MP</th>
+            <!-- <th>Party</th> -->
             <th>Signatories</th>
           </tr>
         </thead>
@@ -280,13 +280,13 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ constituency.name }}</td>
-            <td>
+            <!-- <td>
               {% if constituency.mp_image %}
               <img src="http://www.theyworkforyou.com{{constituency.mp_image}}" class="img-responsive" alt="{{constituency.mp}}">
               {% else %}
               <img src="http://fakeimg.pl/98x118/?text=No Photo" class="img-responsive" alt="No Photo">
               {% endif %}
-            </td>
+            </td> -->
             <td>
               {% if constituency.url %}
               <a href="http://www.theyworkforyou.com{{constituency.url}}" target="_blank">{{constituency.mp}}</a>
@@ -294,7 +294,7 @@
                 {{constituency.mp}}
               {% endif %}
             </td>
-            <td>{% if constituency.party %}{{ constituency.party }}{% endif %}</td>
+            <!-- <td>{% if constituency.party %}{{ constituency.party }}{% endif %}</td> -->
             <td>{{ constituency.signature_count }}</td>
           </tr>
           {% endfor %}
