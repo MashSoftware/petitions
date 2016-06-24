@@ -1,12 +1,13 @@
 import requests
 import geojson
+from application import app
 from geojson import Polygon, Feature, FeatureCollection
 from operator import itemgetter
 from datetime import datetime, timedelta
 
 
 def get_mp(constituency):
-    api_key = 'GEd7VBGHYis2AAXETMAhu9YD'
+    api_key = app.config['TWFY_API_KEY']
     url = 'http://www.theyworkforyou.com/api/getMP?key={0}&constituency={1}&output=js'
     response = requests.get(url.format(api_key, constituency))
     if response.status_code != requests.codes.ok:
