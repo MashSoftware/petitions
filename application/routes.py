@@ -1,33 +1,40 @@
 import json
 import requests
 from application import app
-from application.utils import get_mp, constituency_extent, constituency_collection, petition_events, petition_deadline
+from application.utils import get_mp, constituency_collection, petition_events, petition_deadline
 from flask import render_template, request
 from operator import itemgetter
 
+
 @app.route('/', methods=["GET"])
 def index():
-    title='Home'
+    title = 'Home'
     page_url = request.url
-    return render_template('index.html',
+    return render_template(
+        'index.html',
         title=title,
-        url=page_url)
+        url=page_url
+    )
+
 
 @app.route('/petitions', methods=["GET"])
 def petitions():
-    title='Petitions'
+    title = 'Petitions'
     args = request.args.items()
     url = 'https://petition.parliament.uk/petitions.json?' + ''.join("%s=%s&" % tup for tup in args)
     page = request.args.get('page')
     r = requests.get(url)
     data = json.loads(r.text)
     page_url = request.url
-    return render_template('petitions.html',
+    return render_template(
+        'petitions.html',
         title=title,
         url=page_url,
         data=data,
         page=page,
-        args=args)
+        args=args
+    )
+
 
 @app.route('/petitions/<id>', methods=["GET"])
 def petition(id):
@@ -44,7 +51,7 @@ def petition(id):
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
-    for constituency in sorted_constituencies [:10]:
+    for constituency in sorted_constituencies[:10]:
         mp = get_mp(constituency['name'])
         constituency['party'] = mp['party']
         constituency['url'] = mp['url']
@@ -56,7 +63,8 @@ def petition(id):
     events = petition_events(data)
     deadline = petition_deadline(data)
 
-    return render_template('petition.html',
+    return render_template(
+        'petition.html',
         title=title,
         url=page_url,
         data=data,
@@ -64,7 +72,9 @@ def petition(id):
         constituencies=sorted_constituencies,
         extents=extents,
         events=events,
-        deadline=deadline)
+        deadline=deadline
+    )
+
 
 @app.route('/petitions/<id>/map', methods=["GET"])
 def map(id):
@@ -78,17 +88,20 @@ def map(id):
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
-    for constituency in sorted_constituencies [:10]:
+    for constituency in sorted_constituencies[:10]:
         mp = get_mp(constituency['name'])
         constituency['party'] = mp['party']
         constituency['url'] = mp['url']
 
     extents = constituency_collection(sorted_constituencies)
 
-    return render_template('map.html',
+    return render_template(
+        'map.html',
         title=title,
         url=page_url,
-        extents=extents)
+        extents=extents
+    )
+
 
 @app.route('/petitions/<id>/history', methods=["GET"])
 def history(id):
@@ -101,9 +114,11 @@ def history(id):
     events = petition_events(data)
     deadline = petition_deadline(data)
 
-    return render_template('history.html',
+    return render_template(
+        'history.html',
         title=title,
         url=page_url,
         data=data,
         events=events,
-        deadline=deadline)
+        deadline=deadline
+    )
