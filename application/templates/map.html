@@ -25,29 +25,9 @@
 <body>
   <div id="map"></div>
 
-  <script>
-  var map = L.map('map').setView([54.525564, -3.921976], 6);
-
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors. Powered by <a href="http://mapit.mysociety.org/" target="_blank">MapIt</a>'
-  }).addTo(map);
-
-  var myStyle = {
-      color: "#2196f3",
-      opacity: 1
-  };
-
-  function onEachFeature(feature, layer) {
-    layer.bindPopup("<b>" + feature.properties.name + "</b>" +
-      "<p><i class=\"fa fa-user fa-fw\"></i> <a href=\"http://www.theyworkforyou.com" + feature.properties.url + "\" target=\"_blank\">" + feature.properties.mp + "</a></p>" +
-      "<p><i class=\"fa fa-certificate fa-fw\"></i> " + feature.properties.party + " Party</p>" +
-      "<p><i class=\"fa fa-pencil fa-fw\"></i> " + feature.properties.signature_count + " signatures</p>");
-  }
-
-  var geojson = L.geoJson({{extents|safe}}, {style: myStyle, onEachFeature: onEachFeature}).addTo(map);
-
-  //Center map view on geojson
-  map.fitBounds(geojson.getBounds());
+  <script type="text/javascript">
+    var extents = {{ extents|safe }};
   </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='map.js') }}"></script>
 </body>
 </html>
