@@ -217,7 +217,7 @@
               {% if constituency.mp_image %}
               <img src="http://www.theyworkforyou.com{{constituency.mp_image}}" class="img-responsive" alt="{{constituency.mp}}">
               {% else %}
-              <img src="http://fakeimg.pl/98x118/?text=No%20Photo" class="img-responsive" alt="No Photo">
+              <img src="{{ url_for('static', filename='img/no_photo.png') }}" class="img-responsive" alt="No Photo" height="118" width="98">
               {% endif %}
             </td>
             <td>
