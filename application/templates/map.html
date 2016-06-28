@@ -28,6 +28,8 @@
   <script type="text/javascript">
     var extents = {{ extents|safe }};
   </script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/map.min.js') }}"></script>
+  {% assets "map_js" %}
+  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
 </body>
 </html>

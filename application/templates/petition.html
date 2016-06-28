@@ -73,8 +73,10 @@
           <script type="text/javascript">
             var extents = {{ extents|safe }};
           </script>
-          <script type="text/javascript" src="{{ url_for('static', filename='js/map.min.js') }}"></script>
-        </div>
+          {% assets "map_js" %}
+          <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+          {% endassets %}
+          </div>
       </div>
       <div class="panel-footer">
         <a class="btn btn-link" href="{{ data['data']['id'] }}/map" role="button"><i class="fa fa-expand fa-fw"></i> View Fullscreen</a>
