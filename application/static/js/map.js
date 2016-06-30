@@ -11,8 +11,8 @@ var myStyle = {
 
 function onEachFeature(feature, layer) {
   layer.bindPopup("<b>" + feature.properties.name + "</b>" +
-  "<p><i class=\"fa fa-user fa-fw\"></i> <a href=\"http://www.theyworkforyou.com" + feature.properties.url + "\" target=\"_blank\">" + feature.properties.mp + "</a></p>" +
-  "<p><i class=\"fa fa-certificate fa-fw\"></i> " + feature.properties.party + " Party</p>" +
+  "<p><i class=\"fa fa-user fa-fw\"></i> " + feature.properties.mp + "</p>" +
+  //"<p><i class=\"fa fa-certificate fa-fw\"></i> " + feature.properties.party + " Party</p>" +
   "<p><i class=\"fa fa-pencil fa-fw\"></i> " + feature.properties.signature_count + " signatures</p>");
 }
 

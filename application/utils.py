@@ -10,6 +10,7 @@ def get_mp(constituency):
     api_key = app.config['TWFY_API_KEY']
     url = 'http://www.theyworkforyou.com/api/getMP?key={0}&constituency={1}&output=js'
     response = requests.get(url.format(api_key, constituency))
+
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
     else:
@@ -34,8 +35,8 @@ def constituency_collection(constituencies):
         feature = Feature(geometry=Polygon(constituency_extent(constituency['ons_code'])['coordinates']))
         feature.properties['name'] = constituency['name']
         feature.properties['mp'] = constituency['mp']
-        feature.properties['party'] = constituency['party']
-        feature.properties['url'] = constituency['url']
+        # feature.properties['party'] = constituency['party']
+        # feature.properties['url'] = constituency['url']
         feature.properties['signature_count'] = constituency['signature_count']
         features.append(feature)
 

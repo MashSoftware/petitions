@@ -50,12 +50,12 @@ def petition(id):
     constituencies = data['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
-    for constituency in sorted_constituencies[:10]:
-        mp = get_mp(constituency['name'])
-        constituency['party'] = mp['party']
-        constituency['url'] = mp['url']
-        if 'image' in mp:
-            constituency['mp_image'] = mp['image']
+    # for constituency in sorted_constituencies[:10]:
+    #     mp = get_mp(constituency['name'])
+    #     constituency['party'] = mp['party']
+    #     constituency['url'] = mp['url']
+    #     if 'image' in mp:
+    #         constituency['mp_image'] = mp['image']
 
     extents = constituency_collection(sorted_constituencies)
 
