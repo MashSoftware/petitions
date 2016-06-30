@@ -10,7 +10,7 @@ PETITIONS_API_URL = app.config['PETITIONS_API_URL']
 
 
 def get_petitions(args):
-    url = '{}.json?'
+    url = '{0}.json?{1}'
     response = requests.get(url.format(PETITIONS_API_URL, ''.join("%s=%s&" % tup for tup in args)))
     if response.status_code != requests.codes.ok:
         response.raise_for_status()

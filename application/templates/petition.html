@@ -76,13 +76,8 @@
           <h5 class="list-group-item-heading"><i class="fa fa-map-o fa-fw"></i> Map</h5>
         </div>
         <div class="list-group-item" id="map" style="width: 100%; height: 400px">
-          <script type="text/javascript">
-            var extents = {{ extents|safe }};
-          </script>
-          {% assets "map_js" %}
-          <script type="text/javascript" src="{{ ASSET_URL }}" async></script>
-          {% endassets %}
-          </div>
+          {% include 'includes/map.html' %}
+        </div>
       </div>
       <div class="panel-footer">
         <a class="btn btn-link" href="{{ data['data']['id'] }}/map" role="button"><i class="fa fa-expand fa-fw"></i> View Fullscreen</a>
