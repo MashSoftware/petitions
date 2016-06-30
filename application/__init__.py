@@ -2,6 +2,7 @@
 from flask import Flask
 from flask_assets import Environment, Bundle
 from flask_compress import Compress
+from flask_cache import Cache
 
 app = Flask(__name__)
 
@@ -15,5 +16,8 @@ assets.register('map_js', js)
 
 # Flask Compress
 Compress(app)
+
+# Flask Cache
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 import application.views

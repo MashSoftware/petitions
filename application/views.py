@@ -1,12 +1,14 @@
 import json
 import requests
 from application import app
+from application import cache
 from application.utils import get_mp, constituency_collection, petition_events, petition_deadline
 from flask import render_template, request
 from operator import itemgetter
 
 
 @app.route('/', methods=["GET"])
+@cache.cached(timeout=300)
 def index():
     title = 'Home'
     return render_template(
@@ -16,6 +18,7 @@ def index():
 
 
 @app.route('/petitions', methods=["GET"])
+@cache.cached(timeout=300)
 def petitions():
     title = 'Petitions'
     args = request.args.items()
@@ -33,6 +36,7 @@ def petitions():
 
 
 @app.route('/petitions/<id>', methods=["GET"])
+@cache.cached(timeout=300)
 def petition(id):
     url = 'https://petition.parliament.uk/petitions/' + id + '.json'
     r = requests.get(url)
@@ -71,6 +75,7 @@ def petition(id):
 
 
 @app.route('/petitions/<id>/map', methods=["GET"])
+@cache.cached(timeout=300)
 def map(id):
     url = 'https://petition.parliament.uk/petitions/' + id + '.json'
     r = requests.get(url)
@@ -96,6 +101,7 @@ def map(id):
 
 
 @app.route('/petitions/<id>/history', methods=["GET"])
+@cache.cached(timeout=300)
 def history(id):
     url = 'https://petition.parliament.uk/petitions/' + id + '.json'
     r = requests.get(url)
