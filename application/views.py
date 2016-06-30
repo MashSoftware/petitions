@@ -1,8 +1,6 @@
-import json
-import requests
 from application import app
 from application import cache
-from application.utils import get_mp, constituency_collection, petition_events, petition_deadline
+import application.utils as utils
 from flask import render_template, request
 from operator import itemgetter
 
@@ -22,14 +20,12 @@ def index():
 def petitions():
     title = 'Petitions'
     args = request.args.items()
-    url = 'https://petition.parliament.uk/petitions.json?' + ''.join("%s=%s&" % tup for tup in args)
     page = request.args.get('page')
-    r = requests.get(url)
-    data = json.loads(r.text)
+    petitions = utils.get_petitions(args)
     return render_template(
         'petitions.html',
         title=title,
-        data=data,
+        data=petitions,
         page=page,
         args=args
     )
@@ -38,34 +34,32 @@ def petitions():
 @app.route('/petitions/<id>', methods=["GET"])
 @cache.cached(timeout=300)
 def petition(id):
-    url = 'https://petition.parliament.uk/petitions/' + id + '.json'
-    r = requests.get(url)
-    data = json.loads(r.text)
+    petition = utils.get_petition(id)
 
-    title = data['data']['attributes']['action']
+    title = petition['data']['attributes']['action']
 
-    countries = data['data']['attributes']['signatures_by_country']
+    countries = petition['data']['attributes']['signatures_by_country']
     sorted_countries = sorted(countries, key=itemgetter('signature_count'), reverse=True)
 
-    constituencies = data['data']['attributes']['signatures_by_constituency']
+    constituencies = petition['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
     # for constituency in sorted_constituencies[:10]:
-    #     mp = get_mp(constituency['name'])
+    #     mp = utils.get_mp(constituency['name'])
     #     constituency['party'] = mp['party']
     #     constituency['url'] = mp['url']
     #     if 'image' in mp:
     #         constituency['mp_image'] = mp['image']
 
-    extents = constituency_collection(sorted_constituencies)
+    extents = utils.constituency_collection(sorted_constituencies)
 
-    events = petition_events(data)
-    deadline = petition_deadline(data)
+    events = utils.petition_events(petition)
+    deadline = utils.petition_deadline(petition)
 
     return render_template(
         'petition.html',
         title=title,
-        data=data,
+        data=petition,
         countries=sorted_countries,
         constituencies=sorted_constituencies,
         extents=extents,
@@ -77,21 +71,19 @@ def petition(id):
 @app.route('/petitions/<id>/map', methods=["GET"])
 @cache.cached(timeout=300)
 def map(id):
-    url = 'https://petition.parliament.uk/petitions/' + id + '.json'
-    r = requests.get(url)
-    data = json.loads(r.text)
+    petition = utils.get_petition(id)
 
-    title = data['data']['attributes']['action']
+    title = petition['data']['attributes']['action']
 
-    constituencies = data['data']['attributes']['signatures_by_constituency']
+    constituencies = petition['data']['attributes']['signatures_by_constituency']
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
-    for constituency in sorted_constituencies[:10]:
-        mp = get_mp(constituency['name'])
-        constituency['party'] = mp['party']
-        constituency['url'] = mp['url']
+    # for constituency in sorted_constituencies[:10]:
+    #     mp = utils.get_mp(constituency['name'])
+    #     constituency['party'] = mp['party']
+    #     constituency['url'] = mp['url']
 
-    extents = constituency_collection(sorted_constituencies)
+    extents = utils.constituency_collection(sorted_constituencies)
 
     return render_template(
         'map.html',
@@ -103,18 +95,16 @@ def map(id):
 @app.route('/petitions/<id>/history', methods=["GET"])
 @cache.cached(timeout=300)
 def history(id):
-    url = 'https://petition.parliament.uk/petitions/' + id + '.json'
-    r = requests.get(url)
-    data = json.loads(r.text)
+    petition = utils.get_petition(id)
 
-    title = data['data']['attributes']['action']
-    events = petition_events(data)
-    deadline = petition_deadline(data)
+    title = petition['data']['attributes']['action']
+    events = utils.petition_events(petition)
+    deadline = utils.petition_deadline(petition)
 
     return render_template(
         'history.html',
         title=title,
-        data=data,
+        data=petition,
         events=events,
         deadline=deadline
     )

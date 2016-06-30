@@ -1,16 +1,39 @@
 import requests
+import json
 import geojson
 from application import app
 from geojson import Polygon, Feature, FeatureCollection
 from operator import itemgetter
 from datetime import datetime, timedelta
 
+PETITIONS_API_URL = app.config['PETITIONS_API_URL']
+
+
+def get_petitions(args):
+    url = '{}.json?'
+    response = requests.get(url.format(PETITIONS_API_URL, ''.join("%s=%s&" % tup for tup in args)))
+    if response.status_code != requests.codes.ok:
+        response.raise_for_status()
+    else:
+        petitions = json.loads(response.text)
+    return petitions
+
+
+def get_petition(id):
+    url = '{0}/{1}.json'
+    response = requests.get(url.format(PETITIONS_API_URL, id))
+    if response.status_code != requests.codes.ok:
+        response.raise_for_status()
+    else:
+        petition = json.loads(response.text)
+    return petition
+
 
 def get_mp(constituency):
-    api_key = app.config['TWFY_API_KEY']
-    url = 'http://www.theyworkforyou.com/api/getMP?key={0}&constituency={1}&output=js'
-    response = requests.get(url.format(api_key, constituency))
-
+    TWFY_API_URL = app.config['TWFY_API_URL']
+    TWFY_API_KEY = app.config['TWFY_API_KEY']
+    url = '{0}/getMP?key={1}&constituency={2}&output=js'
+    response = requests.get(url.format(TWFY_API_URL, TWFY_API_KEY, constituency))
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
     else:
@@ -19,8 +42,9 @@ def get_mp(constituency):
 
 
 def constituency_extent(ons_code):
-    url = 'http://mapit.mysociety.org/area/{0}.geojson'
-    response = requests.get(url.format(ons_code))
+    MAPIT_API_URL = app.config['MAPIT_API_URL']
+    url = '{0}/area/{1}.geojson'
+    response = requests.get(url.format(MAPIT_API_URL, ons_code))
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
     else:
