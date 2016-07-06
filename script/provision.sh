@@ -1,31 +1,25 @@
 #!/usr/bin/env bash
 
-echo 'Updating package lists...'
-apt-get -qq  update
-
-echo 'Upgrading packages...'
-apt-get -qq -y upgrade
+echo 'Installing PostgreSQL & PostGIS...'
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+sudo apt-get install wget ca-certificates
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get install -y postgresql-9.5-postgis-2.2 pgadmin3 postgresql-contrib postgis libpq-dev python-dev
+sudo locale-gen en_GB.UTF-8
 
 echo 'Installing Pip...'
-apt-get -qq -y install python-pip
+apt-get -y install python-pip
 
 echo 'Upgrade Pip...'
-pip install --upgrade pip
-
-echo 'Installing VirtualEnv...'
-pip install virtualenv --upgrade
-
-echo 'Create VirtualEnv...'
-virtualenv venv
-
-echo 'Activate VirtualEnv...'
-source venv/bin/activate
+pip install -U pip
 
 echo 'Installing requirements...'
-pip install -r /vagrant/requirements.txt  --allow-all-external
+pip install -r /vagrant/requirements.txt
 
 echo 'Tidying up...'
-apt-get -qq autoclean
-apt-get -qq autoremove
+apt-get autoclean
+apt-get autoremove
 
 echo 'Done!'
