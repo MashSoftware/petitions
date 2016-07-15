@@ -108,3 +108,13 @@ def history(id):
         events=events,
         deadline=deadline
     )
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('error.html', error=error), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error.html', error=error), 500
