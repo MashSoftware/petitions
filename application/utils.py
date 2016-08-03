@@ -30,10 +30,10 @@ def get_petition(id):
 
 
 def get_mp(constituency):
-    TWFY_API_URL = app.config['TWFY_API_URL']
-    TWFY_API_KEY = app.config['TWFY_API_KEY']
+    twfy_api_url = app.config['TWFY_API_URL']
+    twfy_api_key = app.config['TWFY_API_KEY']
     url = '{0}/getMP?key={1}&constituency={2}&output=js'
-    response = requests.get(url.format(TWFY_API_URL, TWFY_API_KEY, constituency))
+    response = requests.get(url.format(twfy_api_url, twfy_api_key, constituency))
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
     else:
@@ -42,9 +42,9 @@ def get_mp(constituency):
 
 
 def constituency_extent(ons_code):
-    MAPIT_API_URL = app.config['MAPIT_API_URL']
+    mapit_api_url = app.config['MAPIT_API_URL']
     url = '{0}/area/{1}.geojson'
-    response = requests.get(url.format(MAPIT_API_URL, ons_code))
+    response = requests.get(url.format(mapit_api_url, ons_code))
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
     else:
