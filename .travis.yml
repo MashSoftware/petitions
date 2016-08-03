@@ -4,6 +4,8 @@ python:
 install:
 - pip install -r requirements.txt
 - pip install flake8
+- pip install pep8-naming
+- pip install hacking
 script: flake8 .
 deploy:
   provider: heroku
