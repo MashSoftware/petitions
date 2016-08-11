@@ -1,8 +1,18 @@
 from application import app
 from application import cache
-import application.utils as utils
+from application.models import Petitions, TheyWorkForYou, MapIt
 from flask import render_template, request
 from operator import itemgetter
+
+petitions_url = app.config['PETITIONS_API_URL']
+petitions_api = Petitions(petitions_url)
+
+twfy_url = app.config['TWFY_API_URL']
+twfy_key = app.config['TWFY_API_KEY']
+twfy_api = TheyWorkForYou(twfy_url, twfy_key)
+
+mapit_url = app.config['MAPIT_API_URL']
+mapit_api = MapIt(mapit_url)
 
 
 @app.route('/', methods=["GET"])
@@ -21,11 +31,11 @@ def petitions():
     title = 'Petitions'
     args = request.args.items()
     page = request.args.get('page')
-    petitions = utils.get_petitions(args)
+    data = petitions_api.get_petitions(args)
     return render_template(
         'petitions.html',
         title=title,
-        data=petitions,
+        data=data,
         page=page,
         args=args
     )
@@ -34,7 +44,7 @@ def petitions():
 @app.route('/petitions/<id>', methods=["GET"])
 @cache.cached(timeout=300)
 def petition(id):
-    petition = utils.get_petition(id)
+    petition = petitions_api.get_petition(id)
 
     title = petition['data']['attributes']['action']
 
@@ -45,16 +55,16 @@ def petition(id):
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
     # for constituency in sorted_constituencies[:10]:
-    #     mp = utils.get_mp(constituency['name'])
+    #     mp = twfy_api.get_mp(constituency['name'])
     #     constituency['party'] = mp['party']
     #     constituency['url'] = mp['url']
     #     if 'image' in mp:
     #         constituency['mp_image'] = mp['image']
 
-    extents = utils.constituency_collection(sorted_constituencies)
+    extents = mapit_api.constituency_collection(sorted_constituencies)
 
-    events = utils.petition_events(petition)
-    deadline = utils.petition_deadline(petition)
+    events = petitions_api.petition_events(petition)
+    deadline = petitions_api.petition_deadline(petition)
 
     return render_template(
         'petition.html',
@@ -71,7 +81,7 @@ def petition(id):
 @app.route('/petitions/<id>/map', methods=["GET"])
 @cache.cached(timeout=300)
 def map(id):
-    petition = utils.get_petition(id)
+    petition = petitions_api.get_petition(id)
 
     title = petition['data']['attributes']['action']
 
@@ -79,11 +89,11 @@ def map(id):
     sorted_constituencies = sorted(constituencies, key=itemgetter('signature_count'), reverse=True)
 
     # for constituency in sorted_constituencies[:10]:
-    #     mp = utils.get_mp(constituency['name'])
+    #     mp = twfy_api.get_mp(constituency['name'])
     #     constituency['party'] = mp['party']
     #     constituency['url'] = mp['url']
 
-    extents = utils.constituency_collection(sorted_constituencies)
+    extents = mapit_api.constituency_collection(sorted_constituencies)
 
     return render_template(
         'map.html',
@@ -95,11 +105,11 @@ def map(id):
 @app.route('/petitions/<id>/history', methods=["GET"])
 @cache.cached(timeout=300)
 def history(id):
-    petition = utils.get_petition(id)
+    petition = petitions_api.get_petition(id)
 
     title = petition['data']['attributes']['action']
-    events = utils.petition_events(petition)
-    deadline = utils.petition_deadline(petition)
+    events = petitions_api.petition_events(petition)
+    deadline = petitions_api.petition_deadline(petition)
 
     return render_template(
         'history.html',
