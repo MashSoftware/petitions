@@ -4,6 +4,7 @@ import geojson
 from geojson import Polygon, Feature, FeatureCollection
 from operator import itemgetter
 from datetime import datetime, timedelta
+from application import cache
 
 
 class Petitions(object):
@@ -80,6 +81,7 @@ class TheyWorkForYou(object):
         self.url = url
         self.key = key
 
+    @cache.memoize(timeout=86400)
     def get_mp(self, constituency):
         url = '{0}/getMP?key={1}&constituency={2}&output=js'
         response = requests.get(url.format(self.url, self.key, constituency))
@@ -96,6 +98,7 @@ class MapIt(object):
         super(MapIt, self).__init__()
         self.url = url
 
+    @cache.memoize(timeout=86400)
     def constituency_extent(self, ons_code):
         url = '{0}/area/{1}.geojson'
         response = requests.get(url.format(self.url, ons_code))
