@@ -1,12 +1,18 @@
 language: python
 python:
 - '2.7'
-install: pip install -r requirements.txt
-script: nosetests
+install:
+- pip install -r requirements.txt
+script:
+- pip install -r requirements_test.txt
+- flake8 .
 deploy:
   provider: heroku
   api_key:
-    secure: Dc4AE8djcPHWZyudIar7xCM76plY+pen0rWGd1rcKxrlQlvmAcnU/f5WTPADnuxO0VD9UpQny/rcVe1HlZidDLo16P88wP1mrX0cg+e65P8ycrjIUul0YWnSv2vj59jWNqaE2pfPjx83kHH2K3/HwUWCGcSICl/NbC/fCsnxUGMX9lTs2dfyMf/daZtQxQ1Gao91yMZeN7on0yMjihVLkO+qGwNsNkmMQ/96EfKTgMJI4ni7qd6OfWnDC+37YLr14uOf92W5C9QZt4kl6fKRSWt8tgJ+xsaBWwC41JRX5YTisBRQLxvIGN+zWZF7Awm8vXjuPuWNN2/QJdTCRiN5HDBiM17f/CDcdN82kz/a/JHUCtG2brtTexSC9IhgeNtde2Luh4LLNngPx5HeobYsxB9HZ3Ilqz8+4XncRPrxTf8gskP4bLg+yj4pm0tlrum0H6DHaMmzSBQaA6IYBrb3gNZQAJvS99SzGiwTMu6AdO0DQkHYLyjQEaWcz6YuL/JQBsBpVwuA5NEz4UYrL4qRSOkw6apSLOJNm7TUMnlFEspS0l3NXiQ5hUI0Qxifmt9mUFNr/9CKPs7/9Efks19j22tXOd186ULh5ZAUj13f+DJrrGrQhg43S4gKFq5LY9czvHroMXKwRRmi5dNRjxlz3kDSBWegoKgv8uJ7Ui4oayE=
-  app: mash-petitions
+    secure: q6sZdkgp1dUY4KXm4b+lKsqvDh5+VEz5Ll97bf4Q8apQZD6+Hs9doTHqe+TCffFHnpWfz2qgXymRMRvVQtHl7YT9qo0/pgFJypfdAhaS5Na3VVNMhE+NwCt32OaY54bZBAJemhbruiLjrKG1NjGVq3Zx7TkM40+eTDfJ9KrWJz+hOhE6afVnP3RwxmaerejsNwjkPFQzRR5icgTNJbtzBJnL+PX3ETlvmNM7OxEDTxqCP9cCzH7vyxVB+E+YEzDM06V24xloOkKEDjB8Rkl/HS2EuZZY7PvAl+2hBEcm+O65CpLBnrDhGOqg0m6/e/QCtkHchg0b0a4FZInKmmIAVN52++rDhVzdybNsDwNYJERsLxCDqCrp0IgMyDgzZ2FSJpxIJhzCNZ29GgyTEX5I0bbWolU4jDiSaiA6itDkj9q1YWTbkKbWTgw52vt5khv5rQy2+8rF6yRJG3I6Uy4fHY5nCMSdh+brujbiCFqmxzPZLiNOsdgDvBoBTBGLhpVpjrJPQe3xNsOGE2WpGPAe8BqISUOpwllhw3kbC9aOt7SLkd0CbLvlKHCFv2V73dLHuVoqa1L7OmLsgteRColjFAlluaTsxOTjRMXK7OSmKCCHjhCO6kg0VSUDwLbKbekRGPKLuwj0A3TQuXAqzDNySIOiWGfh6gL8cWav14pA27M=
+  app:
+    master: mash-petitions
+    develop: mash-petitions-preview
   on:
     repo: MashSoftware/petitions
+sudo: false

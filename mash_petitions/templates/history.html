@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block heading %}
+{% include 'includes/petition_heading.html' %}
+{% endblock %}
+
+{% block content %}
+{% for event in events %}
+<style>
+body:after {
+    content:"";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px dashed #444444;
+}
+</style>
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h4><span class="label label-primary"><i class="fa fa-calendar fa-fw"></i> {{event.date}}</span></h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h5 class="list-group-item-heading">
+            <i class="fa fa-clock-o fa-fw"></i> {{event.time}} {% if event.delta %}({{event.delta}} later){% endif %}
+          </h5>
+        </div>
+        <div class="list-group-item">
+          <p class="lead">
+            {% if event.type == 'created' %}
+            {% if data['data']['attributes']['creator_name'] %}
+            Petition created by {{data['data']['attributes']['creator_name']}}.
+            {% else %}
+            Petition created.
+            {% endif %}
+            {% elif event.type == 'open' %}
+            Petition opened.
+            {% elif event.type == 'updated' %}
+            Last updated.
+            {% elif event.type == 'closed' %}
+            Petition closed.
+            {% elif event.type == 'government_response' %}
+            Government responded.
+            {% elif event.type == 'debate_threshold_reached' %}
+            100,000 signature target met. This petition will be considered for a debate in parliament.
+            {% elif event.type == 'rejected' %}
+            Rejected.
+            {% elif event.type == 'debate_outcome' %}
+            Debate outcome.
+            {% elif event.type == 'moderation_threshold_reached' %}
+            Moderated.
+            {% elif event.type == 'response_threshold_reached' %}
+            10,000 signature target met. The government will respond to this petition.
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,31 +1,23 @@
 #!/usr/bin/env bash
 
-echo 'Updating package lists...'
-apt-get -qq  update
+echo 'Setting locale...'
+sudo locale-gen en_GB.UTF-8
 
 echo 'Upgrading packages...'
-apt-get -qq -y upgrade
+sudo apt-get update
+sudo apt-get -y upgrade
 
 echo 'Installing Pip...'
-apt-get -qq -y install python-pip
+apt-get -y install python-pip
 
 echo 'Upgrade Pip...'
-pip install --upgrade pip
-
-echo 'Installing VirtualEnv...'
-pip install virtualenv --upgrade
-
-echo 'Create VirtualEnv...'
-virtualenv venv
-
-echo 'Activate VirtualEnv...'
-source venv/bin/activate
+pip install -U pip
 
 echo 'Installing requirements...'
-pip install -r /vagrant/requirements.txt  --allow-all-external
+pip install -r /vagrant/requirements.txt
 
 echo 'Tidying up...'
-apt-get -qq autoclean
-apt-get -qq autoremove
+apt-get autoclean
+apt-get autoremove
 
 echo 'Done!'
