@@ -1,6 +1,6 @@
-from application import app
-from application import cache
-from application.models import Petitions, TheyWorkForYou, MapIt
+from mash_petitions import app
+from mash_petitions import cache
+from mash_petitions.models import Petitions, TheyWorkForYou, MapIt
 from flask import render_template, request
 from operator import itemgetter
 

@@ -14,4 +14,4 @@ Compress(app)
 # Flask Cache
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
-import application.views
+import mash_petitions.views

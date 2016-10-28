@@ -4,7 +4,7 @@ import geojson
 from geojson import Polygon, Feature, FeatureCollection
 from operator import itemgetter
 from datetime import datetime, timedelta
-from application import cache
+from mash_petitions import cache
 
 
 class Petitions(object):
